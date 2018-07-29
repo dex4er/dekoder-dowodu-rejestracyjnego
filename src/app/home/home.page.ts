@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { LoadingController } from '@ionic/angular'
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
 import { PolishVehicleRegistrationCertificateDecoder, PolishVehicleRegistrationCertificateData } from 'polish-vehicle-registration-certificate-decoder'
 
@@ -16,10 +17,14 @@ export class HomePage {
   version = version
 
   constructor (
-    private barcodeScanner: BarcodeScanner
+    private barcodeScanner: BarcodeScanner,
+    private loadingController: LoadingController
   ) {}
 
   async scan (): Promise<void> {
+    const loading = await this.loadingController.create()
+    await loading.present()
+
     try {
       const barcodeData = await this.barcodeScanner.scan({ formats: 'AZTEC', orientation: 'portrait' })
       if (!barcodeData.cancelled && barcodeData.format === 'AZTEC') {
@@ -31,8 +36,10 @@ export class HomePage {
           this.error = e
         }
       }
-    } catch(e) {
+    } catch (e) {
       console.error('Error', e)
     }
+
+    await loading.dismiss()
   }
 }
