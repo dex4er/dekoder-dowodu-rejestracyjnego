@@ -1,17 +1,27 @@
 {
-  "name": "dekoder-dowodu",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
   "private": true,
+  "name": "dekoder-dowodu",
+  "description": "Dekoder dowodu rejestracyjnego",
+  "version": "0.1.0",
+  "author": "Piotr Roszatycki",
+  "license": "GPL-2.0",
+  "homepage": "https://github.com/dex4er/dekoder-dowodu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dex4er/dekoder-dowodu"
+  },
+  "bugs": {
+    "url": "https://github.com/dex4er/dekoder-dowodu/issues"
+  },
+  "scripts": {
+    "build": "ng build",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
+    "ng": "ng",
+    "pretest": "tsc --noEmit --pretty && tslint -t stylish -p . && markdownlint *.md",
+    "start": "ng serve",
+    "test": "ng test"
+  },
   "dependencies": {
     "@angular/common": "6.0.9",
     "@angular/core": "6.0.9",
@@ -31,14 +41,14 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular/cli": "6.0.8",
-    "@angular/compiler": "6.0.9",
-    "@angular/compiler-cli": "6.0.9",
-    "@angular/language-service": "6.0.9",
     "@angular-devkit/architect": "0.7.0-rc.3",
     "@angular-devkit/build-angular": "0.7.0-rc.3",
     "@angular-devkit/core": "0.7.0-rc.3",
     "@angular-devkit/schematics": "0.7.0-rc.3",
+    "@angular/cli": "6.0.8",
+    "@angular/compiler": "6.0.9",
+    "@angular/compiler-cli": "6.0.9",
+    "@angular/language-service": "6.0.9",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~10.5.2",
@@ -50,10 +60,11 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "markdownlint-cli": "^0.12.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
+    "tslint-config-standard": "^7.1.0",
     "typescript": "~2.7.2"
-  },
-  "description": "An Ionic project"
+  }
 }
