@@ -15,22 +15,13 @@ export class HomePage {
   objectKeys = Object.keys
   version = version
 
-  private hint: { [key: string]: boolean } = {}
-
   constructor (
     private barcodeScanner: BarcodeScanner
   ) {}
 
-  isHint (key: string): boolean {
-    return this.hint[key]
-  }
-
-  toggleHint (key: string): void {
-    this.hint[key] = !(this.hint[key] || false)
-  }
-
-  scan (): void {
-    this.barcodeScanner.scan({ formats: 'AZTEC', orientation: 'portrait' }).then((barcodeData) => {
+  async scan (): Promise<void> {
+    try {
+      const barcodeData = await this.barcodeScanner.scan({ formats: 'AZTEC', orientation: 'portrait' })
       if (!barcodeData.cancelled && barcodeData.format === 'AZTEC') {
         try {
           const decoder = new PolishVehicleRegistrationCertificateDecoder(barcodeData.text)
@@ -40,8 +31,8 @@ export class HomePage {
           this.error = e
         }
       }
-    }).catch((err) => {
-      console.error('Error', err)
-    })
+    } catch(e) {
+      console.error('Error', e)
+    }
   }
 }
