@@ -1,0 +1,7 @@
+{
+  "name": "dekoder-dowodu",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
