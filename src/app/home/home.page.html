@@ -1,12 +1,29 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div *ngIf="!data && !error">
+    <p>Dekoder Dowodu Rejestracyjnego v{{version}}</p>
+    <p>&copy; 2018 Piotr Roszatycki &lt;piotr.roszatycki@gmail.com&gt;</p>
+    <p>License: <a href="https://opensource.org/licenses/GPL-2.0">GPL-2.0</a></p>
+    <p>Source code: <a href="https://github.com/dex4er/dekoder-dowodu">https://github.com/dex4er/dekoder-dowodu</a></p>
+  </div>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+  <div *ngIf="data">
+    <ion-list>
+      <ion-item *ngFor="let field of objectValues(data)">
+        <ion-label position="stacked">{{field.name}}</ion-label>
+        <ion-input type="text" [ngModel]="field.value" readonly></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="error">
+    <ion-card color="danger">
+      {{error}}
+    </ion-card>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <ion-button expand="full" (click)="scan()">Skanuj</ion-button>
+  </ion-toolbar>
+</ion-footer>
