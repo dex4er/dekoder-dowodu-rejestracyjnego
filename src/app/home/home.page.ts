@@ -12,14 +12,24 @@ import { version } from '../../version'
 export class HomePage {
   data!: PolishVehicleRegistrationCertificateData
   error!: Error
-  objectValues = Object.values
+  objectKeys = Object.keys
   version = version
+
+  private hint: { [key: string]: boolean } = {}
 
   constructor (
     private barcodeScanner: BarcodeScanner
   ) {}
 
-  scan () {
+  isHint (key: string): boolean {
+    return this.hint[key]
+  }
+
+  toggleHint (key: string): void {
+    this.hint[key] = !(this.hint[key] || false)
+  }
+
+  scan (): void {
     this.barcodeScanner.scan({ formats: 'AZTEC', orientation: 'portrait' }).then((barcodeData) => {
       if (!barcodeData.cancelled && barcodeData.format === 'AZTEC') {
         try {

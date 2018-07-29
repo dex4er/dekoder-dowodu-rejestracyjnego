@@ -8,10 +8,14 @@
 
   <div *ngIf="data">
     <ion-list>
-      <ion-item *ngFor="let field of objectValues(data)">
-        <ion-label position="stacked">{{field.name}}</ion-label>
-        <ion-input type="text" [ngModel]="field.value" readonly></ion-input>
-      </ion-item>
+      <div *ngFor="let key of objectKeys(data)">
+        <ion-item>
+          <ion-button slot="end" fill="outline" (click)="toggleHint(key)">?</ion-button>
+          <ion-label position="stacked">{{data[key].name}}</ion-label>
+          <ion-input type="text" [ngModel]="data[key].value" readonly></ion-input>
+          <ion-label position="stacked" *ngIf="isHint(key)">{{data[key].description}}</ion-label>
+        </ion-item>
+      </div>
     </ion-list>
   </div>
 
