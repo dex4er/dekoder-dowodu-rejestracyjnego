@@ -16,18 +16,16 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
   ) {
-    this.initializeApp()
+    void this.initializeApp()
   }
 
-  initializeApp () {
-    void this.platform.ready().then(() => {
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
-      this.statusBar.styleDefault()
-
-      document.addEventListener('backbutton', () => {
-        (navigator as any).app.exitApp()
-      })
-      this.splashScreen.hide()
+  async initializeApp () {
+    await this.platform.ready()
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
+    this.statusBar.styleDefault()
+    document.addEventListener('backbutton', () => {
+      (navigator as any).app.exitApp()
     })
+    this.splashScreen.hide()
   }
 }
