@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.github.dex4er.dekoder_dowodu" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>dekoder-dowodu</name>
+    <name>Dekoder dowodu rejestracyjnego</name>
     <description>Dekoder dowodu rejestracyjnego</description>
     <author email="piotr.roszatycki@gmail.com">Piotr Roszatycki</author>
     <content src="index.html" />
