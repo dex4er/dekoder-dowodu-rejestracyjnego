@@ -3,6 +3,8 @@ import { LoadingController } from '@ionic/angular'
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
 import { PolishVehicleRegistrationCertificateDecoder, PolishVehicleRegistrationCertificateData } from 'polish-vehicle-registration-certificate-decoder'
 
+import { delay } from '../../lib/delay'
+
 import { version } from '../../version'
 
 @Component({
@@ -13,7 +15,6 @@ import { version } from '../../version'
 export class HomePage {
   data!: PolishVehicleRegistrationCertificateData
   error!: Error
-  objectKeys = Object.keys
   version = version
 
   constructor (
@@ -40,6 +41,7 @@ export class HomePage {
       console.error('Error', e)
     }
 
+    await delay(2000) // TODO: check if page is rendered
     await loading.dismiss()
   }
 }

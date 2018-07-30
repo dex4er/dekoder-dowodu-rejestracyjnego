@@ -8,7 +8,7 @@
 
   <div *ngIf="data">
     <ion-list>
-      <div *ngFor="let key of objectKeys(data)">
+      <div *ngFor="let key of data | keys">
         <ion-item>
           <ion-label position="stacked">{{data[key].name}}<br/>{{data[key].description}}</ion-label>
           <ion-input *ngIf="key !== 'organWydajacy'" type="text" [ngModel]="data[key].value" readonly></ion-input>
