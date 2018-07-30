@@ -23,6 +23,10 @@ export class AppComponent {
     void this.platform.ready().then(() => {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
       this.statusBar.styleDefault()
+
+      document.addEventListener('backbutton', () => {
+        (navigator as any).app.exitApp()
+      })
       this.splashScreen.hide()
     })
   }

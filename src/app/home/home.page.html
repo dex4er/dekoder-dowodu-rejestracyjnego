@@ -1,10 +1,10 @@
 <ion-content>
-  <div *ngIf="!data && !error">
+  <ion-text style="padding: 10px;" *ngIf="!data && !error">
     <p>Dekoder Dowodu Rejestracyjnego v{{version}}</p>
     <p>&copy; 2018 Piotr Roszatycki &lt;piotr.roszatycki@gmail.com&gt;</p>
-    <p>License: <a href="https://opensource.org/licenses/GPL-2.0">GPL-2.0</a></p>
-    <p>Source code: <a href="https://github.com/dex4er/dekoder-dowodu">https://github.com/dex4er/dekoder-dowodu</a></p>
-  </div>
+    <p>Licencja: <a href="https://opensource.org/licenses/GPL-2.0">GPL-2.0</a></p>
+    <p>Kody źródłowe: <a href="https://github.com/dex4er/dekoder-dowodu">https://github.com/dex4er/dekoder-dowodu</a></p>
+  </ion-text>
 
   <div *ngIf="data">
     <ion-list>
