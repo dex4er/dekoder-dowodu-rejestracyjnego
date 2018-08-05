@@ -1,0 +1,24 @@
+sudo: false
+
+language: android
+
+android:
+  components:
+    - build-tools-26.0.2
+    - android-27
+
+env:
+  global:
+    - ORG_GRADLE_PROJECT_cdvMinSdkVersion=20
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y libhidapi-dev libudev-dev libusb-1.0-0-dev
+
+install:
+  - nvm install 10
+  - npm install
+
+script:
+  - npx ionic cordova build android
+  - ls -l platforms/android/app/build/outputs/apk/debug/app-debug.apk
