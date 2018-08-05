@@ -83,7 +83,9 @@ Powinno to wystartować przeglądarkę, która otwiera
 stronę <http://localhost:8100/>. Wersja przeglądarkowa korzysta z mocków, które
 zastępują natywne moduły Androida.
 
-## Uruchomienie na urządzeniu
+## Uruchomienie
+
+### Urządzenie
 
 Uruchom na domyślnym urządzeniu podpiętym pod ADB:
 
@@ -95,7 +97,7 @@ Spowoduje to też utworzenie pliku
 `platforms/android/app/build/outputs/apk/debug/app-debug.apk` ze skompilowaną
 aplikacją.
 
-### Uruchomienie na emulatorze
+### Emulator
 
 Wymaga to utworzenia obrazu dla emulatora:
 
@@ -111,7 +113,7 @@ urządzenia, bądź zostanie wywołany bezpośrednio:
 npx ionic cordova emulate android
 ```
 
-### Kompilacja
+## Kompilacja
 
 W celu przygotowania wersji bez informacji dla debuggera:
 
