@@ -1,3 +1,11 @@
+/*!
+ * Dekoder dowodu rejestracyjnego
+ *
+ * (c) 2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+ *
+ * GPL-2.0
+ */
+
 import { enableProdMode } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
