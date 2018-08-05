@@ -13,8 +13,8 @@ import { version } from '../../version'
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-  data!: PolishVehicleRegistrationCertificateData
-  error!: Error
+  data?: PolishVehicleRegistrationCertificateData
+  error?: Error
   version = version
 
   constructor (
@@ -26,6 +26,9 @@ export class HomePage {
     const loading = await this.loadingController.create()
     await loading.present()
 
+    this.data = undefined
+    this.error = undefined
+
     try {
       const barcodeData = await this.barcodeScanner.scan({ formats: 'AZTEC', orientation: 'portrait' })
       if (!barcodeData.cancelled && barcodeData.format === 'AZTEC') {
@@ -34,14 +37,16 @@ export class HomePage {
           this.data = decoder.data
         } catch (e) {
           console.error('Error', e)
-          this.error = e
+          this.error = Object.assign(e, barcodeData)
         }
       }
     } catch (e) {
       console.error('Error', e)
     }
 
-    await delay(2000) // TODO: check if page is rendered
+    if (this.data) {
+      await delay(2000) // TODO: check if page is rendered
+    }
     await loading.dismiss()
   }
 }
