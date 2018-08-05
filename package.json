@@ -1,17 +1,17 @@
 {
   "private": true,
-  "name": "dekoder-dowodu",
+  "name": "dekoder-dowodu-rejestracynego",
   "description": "Dekoder dowodu rejestracyjnego",
   "version": "0.1.0",
   "author": "Piotr Roszatycki",
   "license": "GPL-2.0",
-  "homepage": "https://github.com/dex4er/dekoder-dowodu",
+  "homepage": "https://github.com/dex4er/dekoder-dowodu-rejestracynego",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dex4er/dekoder-dowodu"
+    "url": "https://github.com/dex4er/dekoder-dowodu-rejestracynego"
   },
   "bugs": {
-    "url": "https://github.com/dex4er/dekoder-dowodu/issues"
+    "url": "https://github.com/dex4er/dekoder-dowodu-rejestracynego/issues"
   },
   "scripts": {
     "build": "ng build",
