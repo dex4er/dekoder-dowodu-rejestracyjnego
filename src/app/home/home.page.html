@@ -3,14 +3,9 @@
     <ion-col size="12">
       <ion-text>
         <p>Dekoder Dowodu Rejestracyjnego v{{version}}</p>
-        <p>&copy; 2018 Piotr Roszatycki &lt;piotr.roszatycki@gmail.com&gt;</p>
-        <p>Licencja:
-          <a href="LICENSE.txt">GPL-2.0</a> i
-          <a href="3rdpartylicenses.txt">więcej</a>
-        </p>
-        <p>Kody źródłowe:
-          <a href="https://github.com/dex4er/dekoder-dowodu-rejestracynego">https://github.com/dex4er/dekoder-dowodu-rejestracynego</a>
-        </p>
+        <p>&copy; 2018 Piotr Roszatycki &lt;<a href="mailto:piotr.roszatycki@gmail.com">piotr.roszatycki@gmail.com</a>&gt;</p>
+        <p>Licencja: <a href="LICENSE.txt">GPL-2.0</a> i <a href="3rdpartylicenses.txt">więcej</a></p>
+        <p>Kody źródłowe: <a href="https://github.com/dex4er/dekoder-dowodu-rejestracyjnego">https://github.com/dex4er/dekoder-dowodu-rejestracynego</a></p>
       </ion-text>
     </ion-col>
   </ion-row>
@@ -22,7 +17,7 @@
           <ion-label position="stacked">{{data[key].name}}
             <br/>{{data[key].description}}</ion-label>
           <ion-input *ngIf="key !== 'organWydajacy'" type="text" [ngModel]="data[key].value" readonly></ion-input>
-          <ion-textarea rows="4" *ngIf="key === 'organWydajacy'" type="text" [ngModel]="data[key].value" readonly></ion-textarea>
+          <ion-textarea rows="4" *ngIf="key === 'organWydajacy'" type="text" [ngModel]="organWydajacy" readonly></ion-textarea>
         </ion-item>
       </div>
     </ion-list>

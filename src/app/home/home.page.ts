@@ -14,7 +14,9 @@ import { version } from '../../version'
 })
 export class HomePage {
   data?: PolishVehicleRegistrationCertificateData
+  organWydajacy?: string
   error?: Error
+
   version = version
 
   constructor (
@@ -35,6 +37,7 @@ export class HomePage {
         try {
           const decoder = new PolishVehicleRegistrationCertificateDecoder(barcodeData.text)
           this.data = decoder.data
+          this.organWydajacy = decoder.data.organWydajacy.value.join('\n')
         } catch (e) {
           console.error('Error', e)
           this.error = Object.assign(e, barcodeData)
