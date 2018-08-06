@@ -20,5 +20,6 @@ install:
   - npm install
 
 script:
+  - npm run pretest
   - npx ionic cordova build android
   - ls -l platforms/android/app/build/outputs/apk/debug/app-debug.apk

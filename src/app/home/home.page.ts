@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { LoadingController } from '@ionic/angular'
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
+
 import { PolishVehicleRegistrationCertificateDecoder, PolishVehicleRegistrationCertificateData } from 'polish-vehicle-registration-certificate-decoder'
 
 import { delay } from '../../lib/delay'
@@ -14,7 +15,6 @@ import { version } from '../../version'
 })
 export class HomePage {
   data?: PolishVehicleRegistrationCertificateData
-  organWydajacy?: string
   error?: Error
 
   version = version
@@ -23,6 +23,19 @@ export class HomePage {
     private barcodeScanner: BarcodeScanner,
     private loadingController: LoadingController
   ) {}
+
+  isArray (object: any): boolean {
+    return Array.isArray(object)
+  }
+
+  joinArray (array: string[]): string {
+    return array.join('\n')
+  }
+
+  linesForField (key: string): number {
+    const data: any = this.data
+    return data[key] && data[key].value && data[key].value.length
+  }
 
   async scan (): Promise<void> {
     const loading = await this.loadingController.create()
@@ -37,7 +50,6 @@ export class HomePage {
         try {
           const decoder = new PolishVehicleRegistrationCertificateDecoder(barcodeData.text)
           this.data = decoder.data
-          this.organWydajacy = decoder.data.organWydajacy.value.join('\n')
         } catch (e) {
           console.error('Error', e)
           this.error = Object.assign(e, barcodeData)

@@ -2,7 +2,7 @@
   "private": true,
   "name": "dekoder-dowodu-rejestracynego",
   "description": "Dekoder dowodu rejestracyjnego",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Piotr Roszatycki",
   "license": "GPL-2.0",
   "homepage": "https://github.com/dex4er/dekoder-dowodu-rejestracynego",
@@ -20,7 +20,8 @@
     "ng": "ng",
     "pretest": "tsc --noEmit --pretty && tslint -t stylish -p . && markdownlint *.md",
     "start": "ng serve",
-    "test": "ng test"
+    "test": "ng test",
+    "version": "sh version.sh $npm_package_version"
   },
   "dependencies": {
     "@angular/common": "6.1.0",
@@ -49,7 +50,7 @@
     "core-js": "^2.5.7",
     "es6-promise-plugin": "^4.2.2",
     "phonegap-plugin-barcodescanner": "git+https://github.com/dex4er/phonegap-plugin-barcodescanner.git",
-    "polish-vehicle-registration-certificate-decoder": "^0.1.0",
+    "polish-vehicle-registration-certificate-decoder": "^0.2.0",
     "rxjs": "6.2.2",
     "zone.js": "^0.8.26"
   },
