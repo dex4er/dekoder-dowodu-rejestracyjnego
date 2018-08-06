@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.2.0 2018-08-06
+## v0.2.0 2018-08-07
 
 * Dekodowanie danych starego formatu
 
