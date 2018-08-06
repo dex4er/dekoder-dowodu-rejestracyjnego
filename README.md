@@ -47,14 +47,6 @@ i instaluj Node.js v10:
 nvm install 10
 ```
 
-### HID API
-
-Na systemie Linux będzie potrzebna biblioteka do HID API:
-
-```sh
-sudo apt install libhidapi-dev libudev-dev libusb-1.0-0-dev
-```
-
 ### NPM
 
 Zainstaluj wszystkie biblioteki Node.js:
