@@ -6,6 +6,10 @@
 
 Dekoder dowodu rejestracyjnego
 
+[<img height='62' width='161' src='https://play.google.com/intl/en_us/badges/images/generic/pl_badge_web_generic.png'/>](https://play.google.com/store/apps/details?id=com.github.dex4er.dekoder_dowodu_rejestracyjnego)
+
+<img height='427' width='240' src='https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/master/resources/android/store/screenshot-1.png'><img height='427' width='240' src='https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/master/resources/android/store/screenshot-2.png'>
+
 ## Środowisko
 
 ### Android SDK
