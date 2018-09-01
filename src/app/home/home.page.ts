@@ -28,10 +28,6 @@ export class HomePage {
     return Array.isArray(object)
   }
 
-  joinArray (array: string[]): string {
-    return array.join('\n')
-  }
-
   linesForField (key: string): number {
     const data: any = this.data
     return data[key] && data[key].value && data[key].value.length
