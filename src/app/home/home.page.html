@@ -17,7 +17,7 @@
           <ion-label position="stacked">{{data[key].name}}<br/>{{data[key].description}}</ion-label>
           <div *ngIf="isArray(data[key].value);then inputArray else inputString"></div>
           <ng-template #inputArray><ion-input type="text" *ngFor="let line of data[key].value" value="{{line}}" readonly></ion-input></ng-template>
-          <ng-template #inputString><ion-input type="text" value="{{data[key].value}}" readonly></ion-input></ng-template>
+          <ng-template #inputString><ion-input type="text" value="{{data[key].valueDescription || data[key].value}}" readonly></ion-input></ng-template>
         </ion-item>
       </div>
     </ion-list>
