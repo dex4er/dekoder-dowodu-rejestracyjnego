@@ -9,6 +9,7 @@
       "es2017",
       "dom"
     ],
+    "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -16,6 +17,16 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "strict": true,
-    "target": "es2015"
-  }
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "nrv2e-decompress": ["node_modules/nrv2e-decompress/src/nrv2e-decompress"],
+      "polish-vehicle-registration-certificate-decoder": ["node_modules/polish-vehicle-registration-certificate-decoder/src/polish-vehicle-registration-certificate-decoder"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "node_modules/nrv2e-decompress/src/*.ts",
+    "node_modules/polish-vehicle-registration-certificate-decoder/src/*.ts"
+  ]
 }

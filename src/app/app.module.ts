@@ -13,6 +13,8 @@ import { StatusBarMock } from '../mock/status-bar-mock'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 
+import { WebviewChecker } from '../lib/webview-checker'
+
 const isCordova = window.hasOwnProperty('cordova')
 
 @NgModule({
@@ -22,7 +24,8 @@ const isCordova = window.hasOwnProperty('cordova')
   providers: [
     { provide: ScreenOrientation, useClass: isCordova ? ScreenOrientation : ScreenOrientationMock },
     { provide: SplashScreen, useClass: isCordova ? SplashScreen : SplashScreenMock },
-    { provide: StatusBar, useClass: isCordova ? StatusBar : StatusBarMock }
+    { provide: StatusBar, useClass: isCordova ? StatusBar : StatusBarMock },
+    WebviewChecker
   ],
   bootstrap: [AppComponent]
 })
