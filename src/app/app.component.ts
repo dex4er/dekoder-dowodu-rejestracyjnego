@@ -39,7 +39,7 @@ export class AppComponent {
       const webviewVersion = await this.webviewChecker.getWebViewVersion()
       const webviewMajorVersion = Number(webviewVersion.split('.')[0])
       if (!webviewMajorVersion || webviewMajorVersion < 57) {
-        alert(`Too old Android System Webview (${webviewVersion}).\n\nTry to install newer version.`)
+        alert(`Android System Webview (${webviewVersion}) jest zbyt stary.\n\Proszę spróbować zainstalować nową wersję.`)
         await this.webviewChecker.openGooglePlayPage()
         navigator.app.exitApp()
       }
