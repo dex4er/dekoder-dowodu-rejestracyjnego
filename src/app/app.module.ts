@@ -14,7 +14,6 @@ import { StatusBarMock } from '../mock/status-bar-mock'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
-import { KeysPipe } from './shared/keys.pipe'
 
 const isCordova = window.hasOwnProperty('cordova')
 
@@ -23,6 +22,8 @@ const isCordova = window.hasOwnProperty('cordova')
     AppComponent
   ],
   entryComponents: [],
+  exports: [
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

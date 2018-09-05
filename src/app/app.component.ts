@@ -9,15 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx'
 
 import MobileDetect from 'mobile-detect'
 
-declare interface NavigatorApp {
-  exitApp (): void
-}
-
-declare interface Navigator {
-  app: NavigatorApp
-}
-
-declare var navigator: Navigator
+import '../lib/navigator-app'
 
 const ANDROID_VERSION_WITH_CHROME_WEBVIEW = 7
 const CHROME_VERSION_WITH_CSS_GRID = 57
@@ -59,9 +51,6 @@ export class AppComponent {
 
     await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
     this.statusBar.styleDefault()
-    document.addEventListener('backbutton', () => {
-      navigator.app.exitApp()
-    })
     this.splashScreen.hide()
   }
 }

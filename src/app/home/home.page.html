@@ -1,27 +1,15 @@
 <ion-content>
-  <ion-row *ngIf="!data && !error">
-    <ion-col size="12">
-      <ion-text>
-        <p>Dekoder Dowodu Rejestracyjnego v{{version}}</p>
-        <p>&copy; 2018 Piotr Roszatycki &lt;<a href="mailto:piotr.roszatycki@gmail.com">piotr.roszatycki@gmail.com</a>&gt;</p>
-        <p>Licencja: <a href="LICENSE.txt">GPL-2.0</a> i <a href="3rdpartylicenses.txt">więcej</a></p>
-        <p>Kody źródłowe: <a href="https://github.com/dex4er/dekoder-dowodu-rejestracyjnego">https://github.com/dex4er/dekoder-dowodu-rejestracynego</a></p>
-      </ion-text>
-    </ion-col>
-  </ion-row>
-
-  <div *ngIf="data">
-    <ion-list>
-      <div *ngFor="let key of data | keys">
-        <ion-item text-wrap>
-          <ion-label position="stacked">{{data[key].name}}<br/>{{data[key].description}}</ion-label>
-          <div *ngIf="isArray(data[key].value);then inputArray else inputString"></div>
-          <ng-template #inputArray><ion-input type="text" *ngFor="let line of data[key].value" value="{{line}}" readonly></ion-input></ng-template>
-          <ng-template #inputString><ion-input type="text" value="{{data[key].valueDescription || data[key].value}}" readonly></ion-input></ng-template>
-        </ion-item>
-      </div>
-    </ion-list>
-  </div>
+  <ion-list-header>Lista zeskanowanych dowodów rejestracyjnych</ion-list-header>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of certificates.list()" (click)="details(item)">
+      <ion-item class="item-interactive">
+        <ion-label>{{certificates.label(item)}}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="certificates.delete(item.seriaDr.value)">Usuń</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
   <div *ngIf="error">
     <ion-card color="danger">

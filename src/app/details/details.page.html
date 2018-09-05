@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{certificates.label(item)}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let key of item | keys">
+      <ion-item text-wrap>
+        <ion-label position="stacked">{{item[key].name}}<br/>{{item[key].description}}</ion-label>
+        <div *ngIf="isArray(item[key].value);then inputArray else inputString"></div>
+        <ng-template #inputArray><ion-input type="text" *ngFor="let line of item[key].value" value="{{line}}" readonly></ion-input></ng-template>
+        <ng-template #inputString><ion-input type="text" value="{{item[key].valueDescription || item[key].value}}" readonly></ion-input></ng-template>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
