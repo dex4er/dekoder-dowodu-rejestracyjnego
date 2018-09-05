@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { IonicModule } from '@ionic/angular'
+
+import { Market } from '@ionic-native/market/ngx'
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
@@ -13,8 +15,6 @@ import { StatusBarMock } from '../mock/status-bar-mock'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 
-import { WebviewChecker } from '../lib/webview-checker'
-
 const isCordova = window.hasOwnProperty('cordova')
 
 @NgModule({
@@ -22,10 +22,10 @@ const isCordova = window.hasOwnProperty('cordova')
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
+    Market,
     { provide: ScreenOrientation, useClass: isCordova ? ScreenOrientation : ScreenOrientationMock },
     { provide: SplashScreen, useClass: isCordova ? SplashScreen : SplashScreenMock },
-    { provide: StatusBar, useClass: isCordova ? StatusBar : StatusBarMock },
-    WebviewChecker
+    { provide: StatusBar, useClass: isCordova ? StatusBar : StatusBarMock }
   ],
   bootstrap: [AppComponent]
 })
