@@ -50,7 +50,7 @@ export class AppComponent {
           alert(`Wersja Google Chrome (${chromeVersion}) jest zbyt stara.\n\nProszę spróbować zainstalować nowszą.`)
           this.market.open('com.android.chrome')
         } else {
-          alert(`Wersja Android System Webview (${chromeVersion}) jest zbyt stara.\n\nnProszę spróbować zainstalować nowszą.`)
+          alert(`Wersja Android System Webview (${chromeVersion}) jest zbyt stara.\n\nProszę spróbować zainstalować nowszą.`)
           await this.market.open('com.google.android.webview')
         }
         navigator.app.exitApp()
