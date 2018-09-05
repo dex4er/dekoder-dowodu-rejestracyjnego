@@ -8,16 +8,18 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
 import { BarcodeScannerMock } from '../../mock/barcode-scanner-mock'
 
 import { HomePage } from './home.page'
-import { KeysPipe } from './keys.pipe'
+
+import { SharedModule } from '../shared/shared.module'
 
 const isCordova = window.hasOwnProperty('cordova')
 
 @NgModule({
-  declarations: [HomePage, KeysPipe],
+  declarations: [HomePage],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',

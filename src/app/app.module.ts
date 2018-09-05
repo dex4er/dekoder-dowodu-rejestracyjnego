@@ -14,13 +14,20 @@ import { StatusBarMock } from '../mock/status-bar-mock'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
+import { KeysPipe } from './shared/keys.pipe'
 
 const isCordova = window.hasOwnProperty('cordova')
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule
+  ],
   providers: [
     Market,
     { provide: ScreenOrientation, useClass: isCordova ? ScreenOrientation : ScreenOrientationMock },
