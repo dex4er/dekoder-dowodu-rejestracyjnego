@@ -48,7 +48,7 @@ export class AppComponent {
       if (chromeVersion < CHROME_VERSION_WITH_CSS_GRID) {
         if (androidVersion >= ANDROID_VERSION_WITH_CHROME_WEBVIEW) {
           alert(`Wersja Google Chrome (${chromeVersion}) jest zbyt stara.\n\nProszę spróbować zainstalować nowszą.`)
-          this.market.open('com.android.chrome')
+          await this.market.open('com.android.chrome')
         } else {
           alert(`Wersja Android System Webview (${chromeVersion}) jest zbyt stara.\n\nProszę spróbować zainstalować nowszą.`)
           await this.market.open('com.google.android.webview')
