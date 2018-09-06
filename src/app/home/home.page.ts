@@ -14,6 +14,8 @@ import { CertificatesService } from '../shared/certificates.service'
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
+  dragged: { [serial: string]: boolean } = {}
+
   error?: Error
 
   version = version
@@ -30,6 +32,20 @@ export class HomePage {
   async details (item: PolishVehicleRegistrationCertificateData): Promise<void> {
     const serial = item.seriaDr.value
     this.navController.navigateForward(`/details/${serial}`)
+  }
+
+  async drag (item: PolishVehicleRegistrationCertificateData, $event: CustomEvent): Promise<void> {
+    const target = $event.target as HTMLIonItemSlidingElement | null
+    if (target) {
+      const serial = item.seriaDr.value
+      const ratio = await target.getSlidingRatio()
+      this.dragged[serial] = ratio >= 1
+    }
+  }
+
+  isDragged (item: PolishVehicleRegistrationCertificateData): boolean {
+    const serial = item.seriaDr.value
+    return this.dragged[serial] || false
   }
 
   async scan (): Promise<void> {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
+import { NavController, ToastController } from '@ionic/angular'
+
 import { PolishVehicleRegistrationCertificateData } from 'polish-vehicle-registration-certificate-decoder/src/polish-vehicle-registration-certificate-decoder'
 
 import { CertificatesService } from '../shared/certificates.service'
@@ -16,7 +18,9 @@ export class DetailsPage implements OnInit {
 
   constructor (
     private certificates: CertificatesService,
-    private route: ActivatedRoute
+    private navController: NavController,
+    private route: ActivatedRoute,
+    private toastController: ToastController
   ) {}
 
   ngOnInit () {
@@ -37,5 +41,19 @@ export class DetailsPage implements OnInit {
     } else {
       return 0
     }
+  }
+
+  async delete () {
+    if (this.item && this.serial) {
+      this.certificates.delete(this.serial)
+      const label = this.certificates.label(this.item)
+      const toast = await this.toastController.create({
+        message: `Skasowano dane dowodu rejestracyjnego ${label}`,
+        duration: 2000,
+        position: 'top'
+      })
+      toast.present()
+    }
+    this.navController.goBack()
   }
 }

@@ -1,12 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Zeskanowane dowody rejestracyjne</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-list-header>Lista zeskanowanych dowodów rejestracyjnych</ion-list-header>
+  <ion-list-header *ngIf="certificates.count() == 0">Brak...</ion-list-header>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of certificates.list()" (click)="details(item)">
+    <ion-item-sliding *ngFor="let item of certificates.list()" (ionDrag)="drag(item, $event)" (click)="details(item)">
       <ion-item class="item-interactive">
         <ion-label>{{certificates.label(item)}}</ion-label>
+        <ion-icon *ngIf="isDragged(item)" name="arrow-dropright"></ion-icon>
+        <ion-icon *ngIf="!isDragged(item)" name="arrow-dropleft"></ion-icon>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="certificates.delete(item.seriaDr.value)">Usuń</ion-item-option>
+        <ion-item-option color="danger" (click)="certificates.delete(item.seriaDr.value)"><ion-icon name="trash"></ion-icon></ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

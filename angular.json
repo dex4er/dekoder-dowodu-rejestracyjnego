@@ -31,7 +31,7 @@
                 "output": "."
               },
               {
-                "glob": "**/md-arrow-back.svg",
+                "glob": "**/md-@(arrow-back|arrow-dropleft|arrow-dropright|trash).svg",
                 "input": "node_modules/@ionic/angular/dist/ionic/svg",
                 "output": "svg"
               }
