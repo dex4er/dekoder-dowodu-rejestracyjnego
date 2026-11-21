@@ -9,14 +9,17 @@
   <ion-list-header>Brak...</ion-list-header>
   }
   <ion-list>
-    @for (item of certificates.list(); track certificates.serial(item)) {
+    @for (item of certificates.list(); track serial(item)) {
     <ion-item-sliding (ionDrag)="drag(item, $event)">
-      <ion-item button [detail]="false" (click)="details(item)">
-        <ion-label>{{ certificates.label(item) }}</ion-label>
+      <ion-item button [detail]="false" (click)="details(item.data)">
+        <ion-label>
+          <h2>{{ certificates.label(item.data) }}</h2>
+          <p>{{ scannedAt(item) }}</p>
+        </ion-label>
         <ion-icon slot="end" [name]="isDragged(item) ? 'chevron-forward' : 'chevron-back'"></ion-icon>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="certificates.delete(certificates.serial(item))">
+        <ion-item-option color="danger" (click)="delete(item)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

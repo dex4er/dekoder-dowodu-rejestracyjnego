@@ -6,6 +6,7 @@
  * GPL-2.0
  */
 
+import { inject, provideAppInitializer } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 import {
   PreloadAllModules,
@@ -22,6 +23,7 @@ import { chevronBack, chevronForward, flashlight, flashlightOutline, trash } fro
 
 import { AppComponent } from "./app/app.component";
 import { routes } from "./app/app.routes";
+import { CertificatesService } from "./app/shared/certificates.service";
 
 addIcons({ chevronBack, chevronForward, flashlight, flashlightOutline, trash });
 
@@ -30,5 +32,7 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),
+    // The stored certificates are read before the first view shows the list.
+    provideAppInitializer(() => inject(CertificatesService).load()),
   ],
 }).catch((err: unknown) => console.error(err));

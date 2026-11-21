@@ -22,13 +22,10 @@ import {
   NavController,
 } from "@ionic/angular";
 
-import {
-  type PolishVehicleRegistrationCertificateData,
-  PolishVehicleRegistrationCertificateDecoder,
-} from "polish-vehicle-registration-certificate-decoder";
+import type { PolishVehicleRegistrationCertificateData } from "polish-vehicle-registration-certificate-decoder";
 
 import { ScannerService } from "../scan/scanner.service";
-import { CertificatesService } from "../shared/certificates.service";
+import { type Certificate, CertificatesService } from "../shared/certificates.service";
 
 interface ScanError {
   message: string;
@@ -71,16 +68,28 @@ export class HomePage {
 
   private readonly dragged = signal<ReadonlySet<string>>(new Set());
 
-  async details(item: PolishVehicleRegistrationCertificateData): Promise<void> {
-    await this.navController.navigateForward(["/details", this.certificates.serial(item)]);
+  serial(item: Certificate): string {
+    return this.certificates.serial(item.data);
   }
 
-  async drag(item: PolishVehicleRegistrationCertificateData, event: CustomEvent): Promise<void> {
+  scannedAt(item: Certificate): string {
+    return new Date(item.scannedAt).toLocaleString("pl-PL", { dateStyle: "short", timeStyle: "short" });
+  }
+
+  async details(data: PolishVehicleRegistrationCertificateData): Promise<void> {
+    await this.navController.navigateForward(["/details", this.certificates.serial(data)]);
+  }
+
+  async delete(item: Certificate): Promise<void> {
+    await this.certificates.delete(this.serial(item));
+  }
+
+  async drag(item: Certificate, event: CustomEvent): Promise<void> {
     const target = event.target as HTMLIonItemSlidingElement | null;
     if (!target) {
       return;
     }
-    const serial = this.certificates.serial(item);
+    const serial = this.serial(item);
     const opened = (await target.getSlidingRatio()) >= 1;
     this.dragged.update((dragged) => {
       const result = new Set(dragged);
@@ -93,8 +102,8 @@ export class HomePage {
     });
   }
 
-  isDragged(item: PolishVehicleRegistrationCertificateData): boolean {
-    return this.dragged().has(this.certificates.serial(item));
+  isDragged(item: Certificate): boolean {
+    return this.dragged().has(this.serial(item));
   }
 
   async scan(): Promise<void> {
@@ -113,13 +122,12 @@ export class HomePage {
 
     let data: PolishVehicleRegistrationCertificateData;
     try {
-      data = new PolishVehicleRegistrationCertificateDecoder(text.trim()).data;
+      data = await this.certificates.add(text);
     } catch (e) {
       console.error("Error", e);
       this.error.set({ message: e instanceof Error ? e.message : String(e), text });
       return;
     }
-    this.certificates.add(data);
     await this.details(data);
   }
 }

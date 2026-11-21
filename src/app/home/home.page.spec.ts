@@ -11,6 +11,7 @@ describe("HomePage", () => {
   let navigateForward: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
+    localStorage.clear();
     navigateForward = vi.fn().mockResolvedValue(true);
     await TestBed.configureTestingModule({
       imports: [HomePage],
