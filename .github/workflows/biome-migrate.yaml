@@ -6,12 +6,12 @@ name: Automated biome migrate
 # formatting the new version changes. This workflow migrates the config and
 # reformats the files on the Renovate branch itself, so that the bump, its
 # migration and the formatting land in one pull request instead of a second one
-# against master. The paths are a coarse filter: on a branch that does not change
+# against main. The paths are a coarse filter: on a branch that does not change
 # the Biome version, neither finds anything to do.
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - .github/workflows/biome-migrate.yaml
       - .trunk/trunk.yaml
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       # The Renovate branch is checked out at its head rather than merged with
-      # master, so that the migrated config matches the branch it is committed to.
+      # main, so that the migrated config matches the branch it is committed to.
       - name: Checkout
         uses: actions/checkout@v7
         with:
