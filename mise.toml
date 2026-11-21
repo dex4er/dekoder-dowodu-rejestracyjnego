@@ -1,6 +1,6 @@
 [tools]
 java = "temurin-21"
-node = "24.22.3"
+node = "26.13.1"
 yq = "4.54.3"
 
 [settings]
