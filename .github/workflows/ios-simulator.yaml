@@ -1,0 +1,78 @@
+name: iOS simulator build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  ios-simulator:
+    name: ios simulator build
+
+    runs-on: macos-26
+    timeout-minutes: 45
+
+    env:
+      DO_NOT_TRACK: "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Node, pnpm, and Ruby with CocoaPods, which ML Kit needs, at the versions
+      # of mise.lock; Xcode comes with the runner image.
+      - name: Install tools from mise.lock
+        uses: jdx/mise-action@v5
+        with:
+          version: 2026.11.12 # datasource=github-releases depName=jdx/mise
+          install_args: node pnpm ruby gem:cocoapods
+
+      - name: Get pnpm cache directory
+        shell: bash
+        run: echo "pnpm_cache_dir=$(pnpm store path)" >> "${GITHUB_ENV}"
+
+      - name: Use pnpm cache
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.pnpm_cache_dir }}
+          key: macos-26-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            macos-26-node-
+
+      - name: Use CocoaPods cache
+        uses: actions/cache@v6
+        with:
+          path: ~/Library/Caches/CocoaPods
+          key: macos-26-pods-${{ hashFiles('ios/App/Podfile.lock') }}
+          restore-keys: |
+            macos-26-pods-
+
+      - name: Install pnpm dependencies
+        id: install-pnpm
+        # macOS has no GNU timeout; the step has a limit of its own.
+        timeout-minutes: 5
+        run: pnpm install --color=always --prefer-offline --frozen-lockfile
+        continue-on-error: true
+
+      - name: Install pnpm dependencies (retry)
+        if: steps.install-pnpm.outcome == 'failure'
+        timeout-minutes: 5
+        run: pnpm install --color=always --prefer-offline --frozen-lockfile
+
+      - name: Build web app
+        run: pnpm --color=always build
+
+      # Runs pod install, whose post_install in the Podfile leaves ML Kit out of
+      # simulator builds.
+      - name: Sync iOS project
+        run: pnpm --color=always ios:sync
+
+      - name: Build for the simulator
+        run: pnpm ios:simulator

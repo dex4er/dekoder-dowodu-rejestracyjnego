@@ -1,0 +1,61 @@
+require_relative '../../node_modules/.pnpm/@capacitor+ios@8.6.2_@capacitor+core@8.6.2/node_modules/@capacitor/ios/scripts/pods_helpers'
+
+platform :ios, '15.5'
+use_frameworks!
+
+# workaround to avoid Xcode caching of Pods that requires
+# Product -> Clean Build Folder after new Cordova plugins installed
+# Requires CocoaPods 1.6 or newer
+install! 'cocoapods', :disable_input_output_paths => true
+
+def capacitor_pods
+  pod 'Capacitor', :path => '../../node_modules/.pnpm/@capacitor+ios@8.6.2_@capacitor+core@8.6.2/node_modules/@capacitor/ios'
+  pod 'CapacitorCordova', :path => '../../node_modules/.pnpm/@capacitor+ios@8.6.2_@capacitor+core@8.6.2/node_modules/@capacitor/ios'
+  pod 'AparajitaCapacitorSecureStorage', :path => '../../node_modules/.pnpm/@aparajita+capacitor-secure-storage@8.0.1/node_modules/@aparajita/capacitor-secure-storage'
+  pod 'CapacitorMlkitBarcodeScanning', :path => '../../node_modules/.pnpm/@capacitor-mlkit+barcode-scanning@8.2.2_@capacitor+core@8.6.2/node_modules/@capacitor-mlkit/barcode-scanning'
+  pod 'CapacitorApp', :path => '../../node_modules/.pnpm/@capacitor+app@8.1.2_@capacitor+core@8.6.2/node_modules/@capacitor/app'
+  pod 'CapacitorShare', :path => '../../node_modules/.pnpm/@capacitor+share@8.0.3_@capacitor+core@8.6.2/node_modules/@capacitor/share'
+end
+
+target 'App' do
+  capacitor_pods
+  # Add your Pods here
+end
+
+# ML Kit ships its frameworks with no arm64 slice for the simulator, and the
+# simulators of iOS 26 run no x86_64 apps. So on the simulator the scanner
+# plugin and ML Kit are left out, and the app runs natively; without the
+# plugin it uses the specimen certificate instead of the camera (see
+# "iOS" in AGENTS.md). Builds for devices are unchanged.
+MLKIT_FRAMEWORKS = %w[MLImage MLKitBarcodeScanning MLKitCommon MLKitVision CapacitorMlkitBarcodeScanning].freeze
+
+def without_mlkit_on_simulator(installer)
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings.delete("EXCLUDED_ARCHS[sdk=iphonesimulator*]")
+      if target.name == "CapacitorMlkitBarcodeScanning"
+        config.build_settings["EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]"] = "*"
+      end
+    end
+  end
+
+  Dir.glob(File.join(installer.sandbox.root, "Target Support Files", "*", "*.xcconfig")).each do |path|
+    text = File.read(path).gsub(/^EXCLUDED_ARCHS\[sdk=iphonesimulator\*\] = arm64\n/, "")
+    # $(inherited) in a conditional setting takes in the plain one of the same
+    # file, so the plain setting loses the frameworks of ML Kit and the one for
+    # devices adds them back.
+    ldflags = text[/^OTHER_LDFLAGS = (.*)$/, 1]
+    linked = MLKIT_FRAMEWORKS.select { |name| ldflags&.include?(%( -framework "#{name}")) }
+    unless linked.empty?
+      without = linked.reduce(ldflags) { |flags, name| flags.gsub(%( -framework "#{name}"), "") }
+      text = text.sub(/^OTHER_LDFLAGS = .*$/) { "OTHER_LDFLAGS = #{without}" }
+      text += "OTHER_LDFLAGS[sdk=iphoneos*] = $(inherited) #{linked.map { |name| %(-framework "#{name}") }.join(" ")}\n"
+    end
+    File.write(path, text)
+  end
+end
+
+post_install do |installer|
+  assertDeploymentTarget(installer)
+  without_mlkit_on_simulator(installer)
+end

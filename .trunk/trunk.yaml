@@ -141,11 +141,13 @@ lint:
         - ALL
       paths:
         - resources/**
-    # The native project of Capacitor: Gradle wrapper and generated resources.
+    # The native projects of Capacitor: the Gradle wrapper, the Pods and the
+    # generated resources.
     - linters:
         - ALL
       paths:
         - android/**
+        - ios/**
 actions:
   enabled:
     - trunk-announce

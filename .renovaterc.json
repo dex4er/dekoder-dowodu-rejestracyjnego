@@ -89,8 +89,8 @@
       "groupName": "capacitor"
     },
     {
-      "description": "android/ is the native project of Capacitor, whose Gradle, Android Gradle plugin and AndroidX versions come with Capacitor releases; they are updated by upgrading Capacitor, not one by one.",
-      "matchManagers": ["gradle", "gradle-wrapper"],
+      "description": "android/ and ios/ are the native projects of Capacitor: their Gradle, Android Gradle plugin, AndroidX and CocoaPods versions come with Capacitor and its plugins, and are updated by upgrading those, not one by one.",
+      "matchManagers": ["gradle", "gradle-wrapper", "cocoapods"],
       "enabled": false
     },
     {

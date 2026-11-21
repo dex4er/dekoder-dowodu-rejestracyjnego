@@ -18,7 +18,9 @@ export class ScannerService {
    * cancels.
    */
   async scan(): Promise<string | undefined> {
-    if (!Capacitor.isNativePlatform()) {
+    // The browser has no native scanner, and neither has the iOS simulator, whose
+    // build leaves out ML Kit (see "iOS" in AGENTS.md).
+    if (!Capacitor.isNativePlatform() || !Capacitor.isPluginAvailable("BarcodeScanner")) {
       return MOCK_CERTIFICATE;
     }
 

@@ -1,8 +1,14 @@
 [tools]
+"gem:cocoapods" = "1.17.0"
 java = "temurin-21.0.13+9.0.LTS"
 node = "26.13.1"
 pnpm = "12.21.0"
+ruby = "4.0.10"
 yq = "4.54.3"
+
+# Local, untracked settings, such as DEVELOPMENT_TEAM for pnpm ios:device.
+[env]
+_.file = ".env"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
