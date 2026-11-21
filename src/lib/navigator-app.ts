@@ -1,9 +1,9 @@
 declare interface NavigatorApp {
-  exitApp (): void
+  exitApp(): void;
 }
 
 declare interface Navigator {
-  app: NavigatorApp
+  app: NavigatorApp;
 }
 
-declare var navigator: Navigator
+declare var navigator: Navigator;

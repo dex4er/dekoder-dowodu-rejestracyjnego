@@ -1,17 +1,10 @@
-import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-
-import { KeysPipe } from './keys.pipe'
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { KeysPipe } from "./keys.pipe";
 
 @NgModule({
-  declarations: [
-    KeysPipe
-  ],
-  exports: [
-    KeysPipe
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [KeysPipe],
+  exports: [KeysPipe],
+  imports: [CommonModule],
 })
-export class SharedModule { }
+export class SharedModule {}

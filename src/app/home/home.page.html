@@ -14,7 +14,9 @@
         <ion-icon *ngIf="!isDragged(item)" name="arrow-dropleft"></ion-icon>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="certificates.delete(item.seriaDr.value)"><ion-icon name="trash"></ion-icon></ion-item-option>
+        <ion-item-option color="danger" (click)="certificates.delete(item.seriaDr.value)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
