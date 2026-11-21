@@ -1,76 +1,76 @@
-import { Component } from '@angular/core'
-import { LoadingController, NavController } from '@ionic/angular'
-import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx'
-
-import { PolishVehicleRegistrationCertificateDecoder, PolishVehicleRegistrationCertificateData } from 'polish-vehicle-registration-certificate-decoder'
-
-import { version } from '../../version'
-
-import { CertificatesService } from '../shared/certificates.service'
+import { Component } from "@angular/core";
+import { LoadingController, NavController } from "@ionic/angular";
+import { BarcodeScanner, BarcodeScanResult } from "@ionic-native/barcode-scanner/ngx";
+import {
+  PolishVehicleRegistrationCertificateData,
+  PolishVehicleRegistrationCertificateDecoder,
+} from "polish-vehicle-registration-certificate-decoder";
+import { version } from "../../version";
+import { CertificatesService } from "../shared/certificates.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss']
+  selector: "app-home",
+  templateUrl: "home.page.html",
+  styleUrls: ["home.page.scss"],
 })
 export class HomePage {
-  dragged: { [serial: string]: boolean } = {}
+  dragged: { [serial: string]: boolean } = {};
 
-  error?: Error
+  error?: Error;
 
-  version = version
+  version = version;
 
-  private barcodeData?: BarcodeScanResult
+  private barcodeData?: BarcodeScanResult;
 
-  constructor (
+  constructor(
     private barcodeScanner: BarcodeScanner,
     private certificates: CertificatesService,
     private loadingController: LoadingController,
-    private navController: NavController
+    private navController: NavController,
   ) {}
 
-  async details (item: PolishVehicleRegistrationCertificateData): Promise<void> {
-    const serial = item.seriaDr.value
-    this.navController.navigateForward(`/details/${serial}`)
+  async details(item: PolishVehicleRegistrationCertificateData): Promise<void> {
+    const serial = item.seriaDr.value;
+    this.navController.navigateForward(`/details/${serial}`);
   }
 
-  async drag (item: PolishVehicleRegistrationCertificateData, $event: CustomEvent): Promise<void> {
-    const target = $event.target as HTMLIonItemSlidingElement | null
+  async drag(item: PolishVehicleRegistrationCertificateData, $event: CustomEvent): Promise<void> {
+    const target = $event.target as HTMLIonItemSlidingElement | null;
     if (target) {
-      const serial = item.seriaDr.value
-      const ratio = await target.getSlidingRatio()
-      this.dragged[serial] = ratio >= 1
+      const serial = item.seriaDr.value;
+      const ratio = await target.getSlidingRatio();
+      this.dragged[serial] = ratio >= 1;
     }
   }
 
-  isDragged (item: PolishVehicleRegistrationCertificateData): boolean {
-    const serial = item.seriaDr.value
-    return this.dragged[serial] || false
+  isDragged(item: PolishVehicleRegistrationCertificateData): boolean {
+    const serial = item.seriaDr.value;
+    return this.dragged[serial] || false;
   }
 
-  async scan (): Promise<void> {
-    const loading = await this.loadingController.create()
-    await loading.present()
+  async scan(): Promise<void> {
+    const loading = await this.loadingController.create();
+    await loading.present();
 
-    this.error = undefined
+    this.error = undefined;
 
     try {
-      this.barcodeData = await this.barcodeScanner.scan({ formats: 'AZTEC', orientation: 'portrait' })
-      if (!this.barcodeData.cancelled && this.barcodeData.format === 'AZTEC') {
+      this.barcodeData = await this.barcodeScanner.scan({ formats: "AZTEC", orientation: "portrait" });
+      if (!this.barcodeData.cancelled && this.barcodeData.format === "AZTEC") {
         try {
-          const decoder = new PolishVehicleRegistrationCertificateDecoder(this.barcodeData.text)
-          this.certificates.add(decoder.data)
-          const serial = decoder.data.seriaDr.value
-          this.navController.navigateForward(`/details/${serial}`)
+          const decoder = new PolishVehicleRegistrationCertificateDecoder(this.barcodeData.text);
+          this.certificates.add(decoder.data);
+          const serial = decoder.data.seriaDr.value;
+          this.navController.navigateForward(`/details/${serial}`);
         } catch (e) {
-          console.error('Error', e)
-          this.error = Object.assign(e, this.barcodeData)
+          console.error("Error", e);
+          this.error = Object.assign(e, this.barcodeData);
         }
       }
     } catch (e) {
-      console.error('Error', e)
+      console.error("Error", e);
     }
 
-    await loading.dismiss()
+    await loading.dismiss();
   }
 }

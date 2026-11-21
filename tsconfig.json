@@ -5,10 +5,7 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitReturns": true,
@@ -21,7 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "nrv2e-decompress": ["node_modules/nrv2e-decompress/src/nrv2e-decompress"],
-      "polish-vehicle-registration-certificate-decoder": ["node_modules/polish-vehicle-registration-certificate-decoder/src/polish-vehicle-registration-certificate-decoder"]
+      "polish-vehicle-registration-certificate-decoder": [
+        "node_modules/polish-vehicle-registration-certificate-decoder/src/polish-vehicle-registration-certificate-decoder"
+      ]
     }
   },
   "include": [
