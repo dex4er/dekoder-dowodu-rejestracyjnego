@@ -92,6 +92,15 @@
       "description": "Angular 22 supports TypeScript 6.0 only; a newer TypeScript comes with an Angular release that supports it.",
       "matchPackageNames": ["typescript"],
       "allowedVersions": "~6.0.0"
+    },
+    {
+      "description": [
+        "Java stays on the JDK that Capacitor supports (21 for Capacitor 8); the next major comes with the Capacitor upgrade that requires it.",
+        "Renovate takes the versions of Temurin from the Adoptium API, which encodes a fourth version component as a huge build number (21.0.13.1+2 becomes 21.0.13+100000002). mise does not know such a version, so it breaks mise.lock; the pattern lets through plain builds only. Such respins are often built for some platforms only, too."
+      ],
+      "matchManagers": ["mise"],
+      "matchDepNames": ["java"],
+      "allowedVersions": "/^(temurin-)?21\\.0\\.\\d+\\+\\d{1,4}\\.0\\.LTS$/"
     }
   ],
   "customManagers": [

@@ -3,9 +3,9 @@
 lockfile_version = 4
 
 [[tools.java]]
-version = "temurin-21.0.13+100000002.0.LTS"
+version = "temurin-21.0.13+9.0.LTS"
 backend = "core:java"
-specifiers = ["temurin-21"]
+specifiers = ["temurin-21.0.13+9.0.LTS"]
 
 [tools.java."platforms.linux-arm64"]
 checksum = "sha256:e3522e707fc7dbe2a72c30746b1e7068301a0213ecd213d4491f35a14eb55578"
