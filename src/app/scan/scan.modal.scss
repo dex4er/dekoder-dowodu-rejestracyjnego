@@ -1,0 +1,44 @@
+ion-content {
+  --background: transparent;
+}
+
+.frame {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: min(70vw, 70vh);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.35);
+}
+
+.hint {
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0 16px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px #000;
+}
+
+// The global transparency for the camera preview applies to the toolbars too,
+// which would leave dark text on the camera image.
+ion-toolbar {
+  --background: rgba(0, 0, 0, 0.55);
+  --color: #fff;
+  --border-width: 0;
+}
+
+ion-button {
+  --color: #fff;
+}
+
+ion-segment-button {
+  --color: rgba(255, 255, 255, 0.75);
+  --color-checked: #fff;
+  --indicator-color: #fff;
+}

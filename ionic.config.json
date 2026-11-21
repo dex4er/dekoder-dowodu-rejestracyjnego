@@ -1,7 +1,7 @@
 {
   "name": "dekoder-dowodu-rejestracyjnego",
   "integrations": {
-    "cordova": {}
+    "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular-standalone"
 }

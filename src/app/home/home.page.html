@@ -5,39 +5,39 @@
 </ion-header>
 
 <ion-content>
-  <ion-list-header *ngIf="certificates.count() == 0">Brak...</ion-list-header>
+  @if (certificates.count() === 0) {
+  <ion-list-header>Brak...</ion-list-header>
+  }
   <ion-list>
-    <ion-item-sliding *ngFor="let item of certificates.list()" (ionDrag)="drag(item, $event)" (click)="details(item)">
-      <ion-item class="item-interactive">
-        <ion-label>{{certificates.label(item)}}</ion-label>
-        <ion-icon *ngIf="isDragged(item)" name="arrow-dropright"></ion-icon>
-        <ion-icon *ngIf="!isDragged(item)" name="arrow-dropleft"></ion-icon>
+    @for (item of certificates.list(); track certificates.serial(item)) {
+    <ion-item-sliding (ionDrag)="drag(item, $event)">
+      <ion-item button [detail]="false" (click)="details(item)">
+        <ion-label>{{ certificates.label(item) }}</ion-label>
+        <ion-icon slot="end" [name]="isDragged(item) ? 'chevron-forward' : 'chevron-back'"></ion-icon>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="certificates.delete(item.seriaDr.value)">
-          <ion-icon name="trash"></ion-icon>
+        <ion-item-option color="danger" (click)="certificates.delete(certificates.serial(item))">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+    }
   </ion-list>
 
-  <div *ngIf="error">
-    <ion-card color="danger">
-      <ion-card-header>Nie można zdekodować kodu</ion-card-header>
-      <ion-list>
-        <ion-item>
-          <ion-label position="stacked">Błąd:</ion-label>
-          <ion-text>{{error.message}}</ion-text>
-        </ion-item>
-      </ion-list>
-      <ion-list *ngIf="error.text">
-        <ion-item>
-          <ion-label position="stacked">Udało się jedynie zeskanować poniższy tekst:</ion-label>
-          <ion-textarea rows="20" type="text" [ngModel]="error.text" readonly></ion-textarea>
-        </ion-item>
-      </ion-list>
-    </ion-card>
-  </div>
+  @if (error(); as error) {
+  <ion-card color="danger">
+    <ion-card-header>
+      <ion-card-title>Nie można zdekodować kodu</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Błąd: {{ error.message }}</p>
+      @if (error.text) {
+      <p>Udało się jedynie zeskanować poniższy tekst:</p>
+      <pre class="scanned">{{ error.text }}</pre>
+      }
+    </ion-card-content>
+  </ion-card>
+  }
 </ion-content>
 
 <ion-footer>

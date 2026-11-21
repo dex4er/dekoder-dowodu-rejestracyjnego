@@ -67,6 +67,26 @@
       "matchDepNames": ["npm"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "description": "Angular, its CLI and build tools move together.",
+      "matchPackageNames": ["@angular/**", "@angular-devkit/**"],
+      "groupName": "angular"
+    },
+    {
+      "description": "Ionic and its icons move together.",
+      "matchPackageNames": ["@ionic/**", "ionicons"],
+      "groupName": "ionic"
+    },
+    {
+      "description": "Capacitor, its plugins and the ML Kit plugin, whose major versions follow Capacitor, move together.",
+      "matchPackageNames": ["@capacitor/**", "@capacitor-mlkit/**"],
+      "groupName": "capacitor"
+    },
+    {
+      "description": "android/ is the native project of Capacitor, whose Gradle, Android Gradle plugin and AndroidX versions come with Capacitor releases; they are updated by upgrading Capacitor, not one by one.",
+      "matchManagers": ["gradle", "gradle-wrapper"],
+      "enabled": false
     }
   ],
   "customManagers": [
