@@ -11,6 +11,9 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+// Light or dark after the setting of the system.
+@import "@ionic/angular/css/palettes/dark.system.css";
+
 :root {
   --ion-color-primary: #222;
   --ion-color-primary-rgb: 34, 34, 34;
@@ -25,6 +28,20 @@
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
   --ion-color-secondary-shade: #3f79e0;
   --ion-color-secondary-tint: #5a96ff;
+}
+
+// The near-black primary of the light theme, used for the icons of the toolbars,
+// would disappear on the dark background, so the dark theme takes a near-white
+// one. It comes after the :root above, which would override the dark palette.
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-color-primary: #e0e0e0;
+    --ion-color-primary-rgb: 224, 224, 224;
+    --ion-color-primary-contrast: #000;
+    --ion-color-primary-contrast-rgb: 0, 0, 0;
+    --ion-color-primary-shade: #c5c5c5;
+    --ion-color-primary-tint: #e3e3e3;
+  }
 }
 
 // ML Kit renders the camera preview behind the WebView, so while scanning
