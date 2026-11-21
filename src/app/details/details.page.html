@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>{{ label() }}</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="share()" aria-label="Udostępnij">
+        <ion-icon slot="icon-only" name="share-social"></ion-icon>
+      </ion-button>
       <ion-button (click)="delete()" aria-label="Usuń">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>

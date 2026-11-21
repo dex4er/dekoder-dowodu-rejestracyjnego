@@ -1,5 +1,6 @@
 import { Component, computed, inject, input } from "@angular/core";
 
+import { Share } from "@capacitor/share";
 import {
   IonBackButton,
   IonButton,
@@ -16,15 +17,8 @@ import {
   ToastController,
 } from "@ionic/angular";
 
+import { type CertificateField, certificateFields, certificateText, fieldLines } from "../shared/certificate-text";
 import { CertificatesService } from "../shared/certificates.service";
-
-/** The common shape of every field of the decoded certificate. */
-interface Field {
-  name: string;
-  description: string;
-  value: string | readonly string[];
-  valueDescription?: string;
-}
 
 @Component({
   selector: "app-details",
@@ -63,14 +57,39 @@ export class DetailsPage {
 
   readonly fields = computed(() => {
     const item = this.item();
-    return item ? (Object.values(item) as Field[]) : [];
+    return item ? certificateFields(item) : [];
   });
 
-  lines(field: Field): readonly string[] {
-    if (typeof field.value !== "string") {
-      return field.value;
+  lines(field: CertificateField): readonly string[] {
+    return fieldLines(field);
+  }
+
+  /** Sends the certificate as text through the share sheet of the system. */
+  async share(): Promise<void> {
+    const item = this.item();
+    if (!item) {
+      return;
     }
-    return [field.valueDescription || field.value];
+    try {
+      await Share.share({
+        title: this.certificates.label(item),
+        text: certificateText(item),
+        dialogTitle: "Udostępnij dane dowodu rejestracyjnego",
+      });
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      // Closing the share sheet without a choice rejects the call too.
+      if (message === "Share canceled") {
+        return;
+      }
+      const toast = await this.toastController.create({
+        message: `Nie można udostępnić danych: ${message}`,
+        duration: 3000,
+        position: "top",
+        color: "danger",
+      });
+      await toast.present();
+    }
   }
 
   async delete(): Promise<void> {
