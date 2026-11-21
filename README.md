@@ -1,7 +1,7 @@
 # dekoder-dowodu-rejestracyjnego
 
 <!-- markdownlint-disable MD013 -->
-[![Build Status](https://secure.travis-ci.org/dex4er/dekoder-dowodu-rejestracyjnego.svg)](http://travis-ci.org/dex4er/dekoder-dowodu-rejestracyjnego)
+[![Trunk Check](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/trunk-check.yaml/badge.svg)](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/trunk-check.yaml)
 <!-- markdownlint-enable MD013 -->
 
 Dekoder dowodu rejestracyjnego

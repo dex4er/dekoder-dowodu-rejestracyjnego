@@ -1,0 +1,139 @@
+{
+  // Ignore mismatch for Biome version to make Renovate updates without error
+  // trunk-ignore(biome/deserialize)
+  "$schema": "https://biomejs.dev/schemas/2.6.8/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              {
+                "type": false
+              },
+              ":NODE:",
+              ":BLANK_LINE:",
+              "@angular/**",
+              ":BLANK_LINE:",
+              ["@ionic/**", "@capacitor/**", "@capacitor-mlkit/**"],
+              ":BLANK_LINE:",
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              ":PATH:"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "files": {
+    // pnpm writes its own lockfile and workspace file, and Trunk rewrites its
+    // own .trunk/trunk.yaml on every trunk upgrade. android/ is the native
+    // project of Capacitor, www/ and .angular/ are build output.
+    "includes": [
+      "**",
+      "!**/.angular/**",
+      "!**/.trunk/**",
+      "!**/android/**",
+      "!**/resources/**",
+      "!**/www/**",
+      "!**/pnpm-lock.yaml",
+      "!**/pnpm-workspace.yaml"
+    ]
+  },
+  "formatter": {
+    "attributePosition": "auto",
+    "bracketSpacing": true,
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 120,
+    "useEditorconfig": true
+  },
+  "html": {
+    "formatter": {
+      "enabled": true,
+      // Ionic components are custom elements, which the default "css" mode
+      // treats as inline, so it glues tags together with dangling `>` to keep
+      // whitespace that does not matter for them.
+      "whitespaceSensitivity": "ignore"
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "attributePosition": "auto",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "noRedundantRoles": "off"
+      },
+      "complexity": {
+        "noBannedTypes": "off",
+        "noUselessConstructor": "off",
+        "noUselessThisAlias": "error",
+        "noUselessTypeConstraint": "error"
+      },
+      "correctness": {
+        "noInvalidUseBeforeDeclaration": "error",
+        "noUnusedVariables": "off",
+        "useExhaustiveDependencies": "off"
+      },
+      "nursery": {
+        // Markdown
+        "useConsistentHeadingLevel": "error",
+        "useFencedCodeLanguage": "error",
+        "useSingleTopLevelHeading": "error"
+      },
+      "preset": "none",
+      "style": {
+        "noNamespace": "error",
+        "noParameterAssign": "off",
+        "useArrayLiterals": "off",
+        "useAsConstAssertion": "error",
+        "useBlockStatements": "off",
+        "useNamingConvention": {
+          "level": "off",
+          "options": {
+            "strictCase": false
+          }
+        },
+        "useNodejsImportProtocol": "error",
+        "useTemplate": "off"
+      },
+      "suspicious": {
+        "noEmptyInterface": "off",
+        "noExplicitAny": "off",
+        "noExtraNonNullAssertion": "error",
+        "noMisleadingInstantiator": "error",
+        "noUnsafeDeclarationMerging": "off",
+        "useNamespaceKeyword": "error"
+      }
+    }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  },
+  "yaml": {
+    "formatter": {
+      // Flow sequences stay [a, b]; the global bracketSpacing is meant for
+      // JavaScript objects.
+      "bracketSpacing": false
+    }
+  }
+}
