@@ -56,12 +56,15 @@ jobs:
 
       - name: Install pnpm dependencies
         id: install-pnpm
-        run: timeout 300 pnpm install --color=always --prefer-offline --frozen-lockfile
+        # macOS has no GNU timeout; the step has a limit of its own.
+        timeout-minutes: 5
+        run: pnpm install --color=always --prefer-offline --frozen-lockfile
         continue-on-error: true
 
       - name: Install pnpm dependencies (retry)
         if: steps.install-pnpm.outcome == 'failure'
-        run: timeout 300 pnpm install --color=always --prefer-offline --frozen-lockfile
+        timeout-minutes: 5
+        run: pnpm install --color=always --prefer-offline --frozen-lockfile
 
       - name: Build web app
         run: pnpm --color=always build
