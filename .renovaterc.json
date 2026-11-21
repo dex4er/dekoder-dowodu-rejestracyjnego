@@ -57,6 +57,11 @@
       "groupName": "node"
     },
     {
+      "description": "pnpm in mise.toml, which installs it, and in packageManager, which pnpm switches to, move together.",
+      "matchDepNames": ["pnpm"],
+      "groupName": "pnpm"
+    },
+    {
       "description": "No updates of engines.node, the oldest Node the project builds on.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["engines"],

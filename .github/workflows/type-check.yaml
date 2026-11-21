@@ -26,14 +26,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup node
-        uses: actions/setup-node@v7
+      # Node and pnpm at the versions of mise.lock; Node 25 and newer no longer
+      # bundle Corepack. pnpm then switches to the version of packageManager.
+      - name: Install tools from mise.lock
+        uses: jdx/mise-action@v5
         with:
-          node-version-file: .nvmrc
-          package-manager-cache: false
-
-      - name: Setup pnpm
-        run: corepack enable
+          version: 2026.11.12 # datasource=github-releases depName=jdx/mise
+          install_args: node pnpm
 
       - name: Get pnpm cache directory
         shell: bash

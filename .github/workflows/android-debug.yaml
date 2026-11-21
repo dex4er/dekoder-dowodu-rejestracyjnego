@@ -28,16 +28,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      # Node and the JDK that Gradle needs, at the versions of mise.lock. The
-      # Android SDK comes with the runner image (ANDROID_HOME).
+      # Node, pnpm and the JDK that Gradle needs, at the versions of mise.lock;
+      # Node 25 and newer no longer bundle Corepack. The Android SDK comes with
+      # the runner image (ANDROID_HOME).
       - name: Install tools from mise.lock
         uses: jdx/mise-action@v5
         with:
           version: 2026.11.12 # datasource=github-releases depName=jdx/mise
-          install_args: java node
-
-      - name: Setup pnpm
-        run: corepack enable
+          install_args: java node pnpm
 
       - name: Get pnpm cache directory
         shell: bash

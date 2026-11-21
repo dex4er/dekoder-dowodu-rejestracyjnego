@@ -45,17 +45,16 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Setup node
-        uses: actions/setup-node@v7
+      # Node and pnpm at the versions of mise.lock; Node 25 and newer no longer
+      # bundle Corepack. pnpm then switches to the version of packageManager.
+      - name: Install tools from mise.lock
+        uses: jdx/mise-action@v5
         with:
-          node-version-file: .nvmrc
-          package-manager-cache: false
+          version: 2026.11.12 # datasource=github-releases depName=jdx/mise
+          install_args: node pnpm
 
       # The biome script runs Biome with `pnpm dlx`, so no dependency has to be
       # installed.
-      - name: Setup pnpm
-        run: corepack enable
-
       - name: Run biome migrate
         run: pnpm biome:migrate
 
