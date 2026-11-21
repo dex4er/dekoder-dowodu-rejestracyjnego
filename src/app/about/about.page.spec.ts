@@ -23,8 +23,10 @@ describe("aboutMarkdown", () => {
     const markdown = await aboutMarkdown();
 
     expect(markdown).toContain(`Wersja ${version}`);
-    expect(markdown).toContain("## Licencja\n\n```text\nGPL-2.0\n\nGNU GENERAL PUBLIC LICENSE\n```");
-    expect(markdown).toContain("## Licencje użytych bibliotek\n\n### marked\n\nLicencja: MIT");
+    expect(markdown).toContain(
+      "## Licencja\n\nGPL-2.0\n\n<details>\n<summary>Pełny tekst licencji</summary>\n\n```text\nGPL-2.0\n\nGNU GENERAL PUBLIC LICENSE\n```",
+    );
+    expect(markdown).toContain("## Licencje użytych bibliotek\n\n<details>\n<summary>marked (MIT)</summary>");
   });
 
   it("says where the licenses of the libraries are when the build has none", async () => {

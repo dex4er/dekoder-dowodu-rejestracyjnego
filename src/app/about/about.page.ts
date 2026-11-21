@@ -5,7 +5,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar 
 import { marked } from "marked";
 
 import { APP_INFO } from "../shared/app-info";
-import { fence, thirdPartyLicensesMarkdown } from "./licenses";
+import { collapsible, fence, thirdPartyLicensesMarkdown } from "./licenses";
 
 async function fetchText(url: string): Promise<string | undefined> {
   try {
@@ -30,7 +30,8 @@ export async function aboutMarkdown(): Promise<string> {
   return [
     (about ?? `# ${APP_INFO.name}`).replaceAll("{version}", APP_INFO.version),
     "## Licencja",
-    license ? fence(license.trim()) : "GPL-2.0",
+    "GPL-2.0",
+    ...(license ? [collapsible("Pełny tekst licencji", fence(license.trim()))] : []),
     "## Licencje użytych bibliotek",
     thirdParty ? thirdPartyLicensesMarkdown(thirdParty) : "Lista jest dostępna w wersji produkcyjnej aplikacji.",
   ].join("\n\n");

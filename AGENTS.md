@@ -35,7 +35,8 @@ Freelens.
   `package.json`), then `LICENSE.txt` and the licenses of the libraries. Those
   come from `3rdpartylicenses.txt`, which only the production build writes, so
   the development server shows a note instead. License texts stay verbatim in
-  code blocks.
+  code blocks, collapsed in `<details>` elements, which the sanitizer of
+  Angular lets through.
 - `src/app/scan/`: the scanner service and its modal over the camera preview.
 - `src/app/shared/`: the certificate store and the specimen
   certificate the browser build returns instead of scanning.

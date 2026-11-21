@@ -5,14 +5,23 @@ export function fence(text: string): string {
   return `${ticks}text\n${text}\n${ticks}`;
 }
 
-function escapeMarkdown(text: string): string {
-  return text.replace(/[\\`*_[\]<>#]/g, "\\$&");
+function escapeHtml(text: string): string {
+  return text.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
+}
+
+/**
+ * Markdown that the reader opens with a tap: a details element, whose body is
+ * Markdown again thanks to the blank lines around it.
+ */
+export function collapsible(summary: string, body: string): string {
+  return `<details>\n<summary>${escapeHtml(summary)}</summary>\n\n${body}\n\n</details>`;
 }
 
 /**
  * Turns the 3rdpartylicenses.txt that the production build of Angular writes,
  * sections of `Package:`, `License:` and the license text between lines of
- * dashes, into Markdown: a heading per package, with its license text verbatim.
+ * dashes, into Markdown: per package a collapsed entry with its name and
+ * license, and the license text verbatim inside.
  */
 export function thirdPartyLicensesMarkdown(text: string): string {
   return text
@@ -25,11 +34,7 @@ export function thirdPartyLicensesMarkdown(text: string): string {
         return fence(section);
       }
       const [, name, license, body] = match;
-      const parts = [`### ${escapeMarkdown(name)}`, `Licencja: ${escapeMarkdown(license)}`];
-      if (body.trim()) {
-        parts.push(fence(body.trim()));
-      }
-      return parts.join("\n\n");
+      return collapsible(`${name} (${license})`, body.trim() ? fence(body.trim()) : "Brak treści licencji.");
     })
     .join("\n\n");
 }
