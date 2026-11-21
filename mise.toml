@@ -1,5 +1,5 @@
 [tools]
-java = "temurin-21.0.13+9.0.LTS"
+java = "temurin-21"
 node = "24.22.3"
 yq = "4.54.3"
 

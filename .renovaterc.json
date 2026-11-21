@@ -52,8 +52,8 @@
       "minimumReleaseAge": "25 hours"
     },
     {
-      "description": "Node in mise.toml, .nvmrc and the Trunk runtime move together.",
-      "matchDepNames": ["node"],
+      "description": "Node in mise.toml, .nvmrc and the Trunk runtime, and its types, move together.",
+      "matchDepNames": ["node", "@types/node"],
       "groupName": "node"
     },
     {
@@ -87,6 +87,11 @@
       "description": "android/ is the native project of Capacitor, whose Gradle, Android Gradle plugin and AndroidX versions come with Capacitor releases; they are updated by upgrading Capacitor, not one by one.",
       "matchManagers": ["gradle", "gradle-wrapper"],
       "enabled": false
+    },
+    {
+      "description": "Angular 22 supports TypeScript 6.0 only; a newer TypeScript comes with an Angular release that supports it.",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "~6.0.0"
     }
   ],
   "customManagers": [
