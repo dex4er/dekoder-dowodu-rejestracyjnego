@@ -1,76 +1,125 @@
-import { Component } from "@angular/core";
-import { LoadingController, NavController } from "@ionic/angular";
-import { BarcodeScanner, BarcodeScanResult } from "@ionic-native/barcode-scanner/ngx";
+import { Component, inject, signal } from "@angular/core";
+
 import {
-  PolishVehicleRegistrationCertificateData,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonTitle,
+  IonToolbar,
+  NavController,
+} from "@ionic/angular";
+
+import {
+  type PolishVehicleRegistrationCertificateData,
   PolishVehicleRegistrationCertificateDecoder,
 } from "polish-vehicle-registration-certificate-decoder";
-import { version } from "../../version";
+
+import { ScannerService } from "../scan/scanner.service";
 import { CertificatesService } from "../shared/certificates.service";
+
+interface ScanError {
+  message: string;
+  text?: string;
+}
 
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
-  styleUrls: ["home.page.scss"],
+  styleUrl: "home.page.scss",
+  imports: [
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonContent,
+    IonFooter,
+    IonHeader,
+    IonIcon,
+    IonItem,
+    IonItemOption,
+    IonItemOptions,
+    IonItemSliding,
+    IonLabel,
+    IonList,
+    IonListHeader,
+    IonTitle,
+    IonToolbar,
+  ],
 })
 export class HomePage {
-  dragged: { [serial: string]: boolean } = {};
+  readonly certificates = inject(CertificatesService);
 
-  error?: Error;
+  private readonly navController = inject(NavController);
 
-  version = version;
+  private readonly scanner = inject(ScannerService);
 
-  private barcodeData?: BarcodeScanResult;
+  readonly error = signal<ScanError | undefined>(undefined);
 
-  constructor(
-    private barcodeScanner: BarcodeScanner,
-    private certificates: CertificatesService,
-    private loadingController: LoadingController,
-    private navController: NavController,
-  ) {}
+  private readonly dragged = signal<ReadonlySet<string>>(new Set());
 
   async details(item: PolishVehicleRegistrationCertificateData): Promise<void> {
-    const serial = item.seriaDr.value;
-    this.navController.navigateForward(`/details/${serial}`);
+    await this.navController.navigateForward(["/details", this.certificates.serial(item)]);
   }
 
-  async drag(item: PolishVehicleRegistrationCertificateData, $event: CustomEvent): Promise<void> {
-    const target = $event.target as HTMLIonItemSlidingElement | null;
-    if (target) {
-      const serial = item.seriaDr.value;
-      const ratio = await target.getSlidingRatio();
-      this.dragged[serial] = ratio >= 1;
+  async drag(item: PolishVehicleRegistrationCertificateData, event: CustomEvent): Promise<void> {
+    const target = event.target as HTMLIonItemSlidingElement | null;
+    if (!target) {
+      return;
     }
+    const serial = this.certificates.serial(item);
+    const opened = (await target.getSlidingRatio()) >= 1;
+    this.dragged.update((dragged) => {
+      const result = new Set(dragged);
+      if (opened) {
+        result.add(serial);
+      } else {
+        result.delete(serial);
+      }
+      return result;
+    });
   }
 
   isDragged(item: PolishVehicleRegistrationCertificateData): boolean {
-    const serial = item.seriaDr.value;
-    return this.dragged[serial] || false;
+    return this.dragged().has(this.certificates.serial(item));
   }
 
   async scan(): Promise<void> {
-    const loading = await this.loadingController.create();
-    await loading.present();
+    this.error.set(undefined);
 
-    this.error = undefined;
-
+    let text: string | undefined;
     try {
-      this.barcodeData = await this.barcodeScanner.scan({ formats: "AZTEC", orientation: "portrait" });
-      if (!this.barcodeData.cancelled && this.barcodeData.format === "AZTEC") {
-        try {
-          const decoder = new PolishVehicleRegistrationCertificateDecoder(this.barcodeData.text);
-          this.certificates.add(decoder.data);
-          const serial = decoder.data.seriaDr.value;
-          this.navController.navigateForward(`/details/${serial}`);
-        } catch (e) {
-          console.error("Error", e);
-          this.error = Object.assign(e, this.barcodeData);
-        }
-      }
+      text = await this.scanner.scan();
     } catch (e) {
-      console.error("Error", e);
+      this.error.set({ message: e instanceof Error ? e.message : String(e) });
+      return;
+    }
+    if (text === undefined) {
+      return;
     }
 
-    await loading.dismiss();
+    let data: PolishVehicleRegistrationCertificateData;
+    try {
+      data = new PolishVehicleRegistrationCertificateDecoder(text.trim()).data;
+    } catch (e) {
+      console.error("Error", e);
+      this.error.set({ message: e instanceof Error ? e.message : String(e), text });
+      return;
+    }
+    this.certificates.add(data);
+    await this.details(data);
   }
 }

@@ -1,20 +1,34 @@
 /*!
  * Dekoder dowodu rejestracyjnego
  *
- * (c) 2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+ * (c) 2018-2026 Piotr Roszatycki
  *
  * GPL-2.0
  */
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import { AppModule } from "./app/app.module";
-import { environment } from "./environments/environment";
+import { bootstrapApplication } from "@angular/platform-browser";
+import {
+  PreloadAllModules,
+  provideRouter,
+  RouteReuseStrategy,
+  withComponentInputBinding,
+  withPreloading,
+} from "@angular/router";
 
-if (environment.production) {
-  enableProdMode();
-}
+import { IonicRouteStrategy, provideIonicAngular } from "@ionic/angular";
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+import { addIcons } from "ionicons";
+import { chevronBack, chevronForward, flashlight, flashlightOutline, trash } from "ionicons/icons";
+
+import { AppComponent } from "./app/app.component";
+import { routes } from "./app/app.routes";
+
+addIcons({ chevronBack, chevronForward, flashlight, flashlightOutline, trash });
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideIonicAngular(),
+    provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),
+  ],
+}).catch((err: unknown) => console.error(err));

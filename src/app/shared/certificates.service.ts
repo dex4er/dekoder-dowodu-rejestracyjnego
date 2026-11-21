@@ -1,40 +1,35 @@
-import { Injectable } from "@angular/core";
-import { PolishVehicleRegistrationCertificateData } from "polish-vehicle-registration-certificate-decoder/src/polish-vehicle-registration-certificate-decoder";
+import { computed, Injectable, signal } from "@angular/core";
 
-interface Certificates {
-  [serial: string]: PolishVehicleRegistrationCertificateData;
-}
+import type { PolishVehicleRegistrationCertificateData } from "polish-vehicle-registration-certificate-decoder";
 
 @Injectable({
   providedIn: "root",
 })
 export class CertificatesService {
-  private certificates: Certificates = {};
+  private readonly certificates = signal<ReadonlyMap<string, PolishVehicleRegistrationCertificateData>>(new Map());
+
+  readonly list = computed(() => [...this.certificates().values()]);
+
+  readonly count = computed(() => this.certificates().size);
 
   serial(data: PolishVehicleRegistrationCertificateData): string {
     return data.seriaDr.value;
   }
 
   add(data: PolishVehicleRegistrationCertificateData): void {
-    const serial = this.serial(data);
-    this.certificates[serial] = data;
+    this.certificates.update((certificates) => new Map(certificates).set(this.serial(data), data));
   }
 
   fetch(serial: string): PolishVehicleRegistrationCertificateData | undefined {
-    const data = this.certificates[serial];
-    return data || undefined;
+    return this.certificates().get(serial);
   }
 
-  delete(serial: string) {
-    delete this.certificates[serial];
-  }
-
-  list(): PolishVehicleRegistrationCertificateData[] {
-    return Object.values(this.certificates);
-  }
-
-  count(): number {
-    return Object.keys(this.certificates).length;
+  delete(serial: string): void {
+    this.certificates.update((certificates) => {
+      const result = new Map(certificates);
+      result.delete(serial);
+      return result;
+    });
   }
 
   label(data: PolishVehicleRegistrationCertificateData): string {

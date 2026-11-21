@@ -11,10 +11,6 @@ set -e
 
 echo "export const version = \"$version\";" >src/version.ts
 
-sed 's/widget id="com.github.dex4er.dekoder_dowodu_rejestracyjnego" version="[0-9.]*"/widget id="com.github.dex4er.dekoder_dowodu_rejestracyjnego" version="'"$version"'"/' config.xml >config.xml.tmp
-test -s config.xml.tmp
-mv -f config.xml.tmp config.xml
-
 date=$(date "+%Y-%m-%d")
 {
   echo "## v$version $date"

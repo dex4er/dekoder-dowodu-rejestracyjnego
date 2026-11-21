@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Skanowanie</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Anuluj</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="frame"></div>
+  <p class="hint">Skieruj aparat na kod Aztec z dowodu rejestracyjnego.</p>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment [value]="zoom()" (ionChange)="setZoom(+($event.detail.value ?? 1))">
+      @for (level of zoomLevels(); track level) {
+      <ion-segment-button [value]="level">
+        <ion-label>{{ zoomLabel(level) }}</ion-label>
+      </ion-segment-button>
+      }
+    </ion-segment>
+    @if (torchAvailable()) {
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleTorch()" aria-label="Latarka">
+        <ion-icon slot="icon-only" [name]="torch() ? 'flashlight' : 'flashlight-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    }
+  </ion-toolbar>
+</ion-footer>

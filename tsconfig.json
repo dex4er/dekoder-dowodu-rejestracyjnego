@@ -1,31 +1,30 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "lib": ["es2017", "dom"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
     "strict": true,
-    "target": "es5",
-    "baseUrl": ".",
-    "paths": {
-      "nrv2e-decompress": ["node_modules/nrv2e-decompress/src/nrv2e-decompress"],
-      "polish-vehicle-registration-certificate-decoder": [
-        "node_modules/polish-vehicle-registration-certificate-decoder/src/polish-vehicle-registration-certificate-decoder"
-      ]
-    }
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "es2020",
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "useDefineForClassFields": false
   },
-  "include": [
-    "src/**/*.ts",
-    "node_modules/nrv2e-decompress/src/*.ts",
-    "node_modules/polish-vehicle-registration-certificate-decoder/src/*.ts"
-  ]
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }
