@@ -208,6 +208,9 @@ importers:
       '@capacitor/core':
         specifier: ^8.6.2
         version: 8.6.2
+      '@capacitor/ios':
+        specifier: ^8.6.2
+        version: 8.6.2(@capacitor/core@8.6.2)
       '@capacitor/share':
         specifier: ^8.0.3
         version: 8.0.3(@capacitor/core@8.6.2)

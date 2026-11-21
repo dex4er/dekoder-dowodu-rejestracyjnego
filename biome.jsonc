@@ -26,13 +26,14 @@
   },
   "files": {
     // pnpm writes its own lockfile and workspace file, and Trunk rewrites its
-    // own .trunk/trunk.yaml on every trunk upgrade. android/ is the native
-    // project of Capacitor, www/ and .angular/ are build output.
+    // own .trunk/trunk.yaml on every trunk upgrade. android/ and ios/ are the
+    // native projects of Capacitor, www/ and .angular/ are build output.
     "includes": [
       "**",
       "!**/.angular/**",
       "!**/.trunk/**",
       "!**/android/**",
+      "!**/ios/**",
       "!**/resources/**",
       "!**/www/**",
       "!**/pnpm-lock.yaml",

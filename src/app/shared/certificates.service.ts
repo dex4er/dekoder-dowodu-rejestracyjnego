@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from "@angular/core";
 
-import { SecureStorage } from "@aparajita/capacitor-secure-storage";
+import { KeychainAccess, SecureStorage } from "@aparajita/capacitor-secure-storage";
 import {
   type PolishVehicleRegistrationCertificateData,
   PolishVehicleRegistrationCertificateDecoder,
@@ -124,6 +124,9 @@ export class CertificatesService {
       version: 1,
       certificates: this.list().map(({ raw, scannedAt }) => ({ raw, scannedAt })),
     };
+    // On iOS the item stays out of backups and off other devices, as backup is
+    // off on Android; elsewhere this is a no-op.
+    await SecureStorage.setDefaultKeychainAccess(KeychainAccess.whenUnlockedThisDeviceOnly);
     await SecureStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
   }
 }
