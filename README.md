@@ -3,7 +3,7 @@
 [![Trunk Check](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/trunk-check.yaml/badge.svg)](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/trunk-check.yaml)
 [![Android debug build](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/android-debug.yaml/badge.svg)](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/android-debug.yaml)
 
-Aplikacja na Androida, która skanuje kod Aztec z polskiego dowodu rejestracyjnego
+Aplikacja na Androida i iOS, która skanuje kod Aztec z polskiego dowodu rejestracyjnego
 i pokazuje zapisane w nim dane pojazdu i właściciela.
 
 <img height="427" width="240" alt="Skanowanie kodu Aztec z dowodu rejestracyjnego" src="https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/main/resources/android/store/screenshot-1.png"><img height="427" width="240" alt="Dane zdekodowanego dowodu" src="https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/main/resources/android/store/screenshot-2.png">
@@ -59,6 +59,26 @@ pnpm android:open    # otwarcie projektu w Android Studio
 
 Gotowy plik APK w wersji debug jest też artefaktem każdego przebiegu
 [Android debug build](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/android-debug.yaml).
+
+## iOS
+
+Potrzebny jest Xcode. CocoaPods instaluje `mise install`.
+
+```sh
+pnpm build
+pnpm ios:sync
+```
+
+Potem jedno z poniższych:
+
+```sh
+pnpm ios:open        # otwarcie projektu w Xcode i uruchomienie stamtąd
+pnpm ios:run         # instalacja i uruchomienie na symulatorze lub urządzeniu
+pnpm ios:simulator   # sam build na symulator
+```
+
+Na symulatorze nie ma aparatu ani skanera: przycisk „Skanuj” zwraca dane
+przykładowego dowodu rejestracyjnego, jak w przeglądarce.
 
 ## Licencja
 
