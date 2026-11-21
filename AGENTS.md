@@ -31,14 +31,13 @@ Freelens.
   error card that shows the raw scanned text when it does not decode.
 - `src/app/details/`: every field of one certificate.
 - `src/app/scan/`: the scanner service and its modal over the camera preview.
-- `src/app/shared/`: the in-memory certificate store and the specimen
+- `src/app/shared/`: the certificate store and the specimen
   certificate the browser build returns instead of scanning.
 - `android/`: the native project of Capacitor (see "Android project").
 - `resources/`: the sources of the icon and the splash screen, and the store
   graphics.
 
-The certificates live in memory only, in `CertificatesService`; nothing is
-persisted.
+See "Storage" for how the certificates are kept.
 
 ## Toolchain
 
@@ -119,6 +118,30 @@ wants `node:buffer`, which does not exist in the WebView.
 
 The unit tests run in Node, where `Buffer` is built in, so they do not cover the
 polyfill.
+
+## Storage
+
+`CertificatesService` keeps the certificates with
+`@aparajita/capacitor-secure-storage` under one key, as
+`{ version: 1, certificates: [{ raw, scannedAt }] }`. It stores the text of the Aztec code, not the decoded fields: the text is
+decoded again on every start, so a fix of the decoder applies to what was
+scanned before, and an entry that no longer decodes is skipped. A new scan of
+the same certificate replaces it and moves it to the top; the list is sorted by
+`scannedAt`, last first. `main.ts` loads the store with
+`provideAppInitializer`, before the first view shows the list.
+
+On Android the plugin encrypts the value with AES-GCM under a key of the
+Android Keystore, which never leaves the device, and stores it in
+SharedPreferences; in the browser and in the unit tests it falls back to plain
+localStorage. If the key is lost, as some devices do after a reset of the lock
+screen, the stored value no longer decrypts and the app starts with an empty
+list. `capacitor-secure-storage-plugin` was not taken: it encrypts each value
+with RSA directly, which holds about 245 bytes, less than one Aztec code.
+
+The certificates carry personal data of their owners, so they never leave the
+device: `android:allowBackup="false"` stops the cloud backup, and
+`res/xml/data_extraction_rules.xml` stops the device-to-device transfer too,
+which `allowBackup` alone no longer does from Android 12.
 
 ## Angular
 

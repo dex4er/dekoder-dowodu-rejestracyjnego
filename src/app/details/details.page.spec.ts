@@ -1,8 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import { provideRouter } from "@angular/router";
 
-import { PolishVehicleRegistrationCertificateDecoder } from "polish-vehicle-registration-certificate-decoder";
-
 import { CertificatesService } from "../shared/certificates.service";
 import { MOCK_CERTIFICATE } from "../shared/mock-certificate";
 import { DetailsPage } from "./details.page";
@@ -13,7 +11,8 @@ describe("DetailsPage", () => {
       imports: [DetailsPage],
       providers: [provideRouter([])],
     }).compileComponents();
-    TestBed.inject(CertificatesService).add(new PolishVehicleRegistrationCertificateDecoder(MOCK_CERTIFICATE).data);
+    localStorage.clear();
+    await TestBed.inject(CertificatesService).add(MOCK_CERTIFICATE);
   });
 
   it("lists every field of the certificate", () => {

@@ -76,7 +76,7 @@ export class DetailsPage {
   async delete(): Promise<void> {
     const item = this.item();
     if (item) {
-      this.certificates.delete(this.serial());
+      await this.certificates.delete(this.serial());
       const toast = await this.toastController.create({
         message: `Skasowano dane dowodu rejestracyjnego ${this.certificates.label(item)}`,
         duration: 2000,

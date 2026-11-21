@@ -15,10 +15,9 @@ export class AppComponent {
 
   constructor() {
     // The back button on the main view sends the app to the background, as the
-    // home button does, so the scanned certificates, which live in memory
-    // only, are still there when it comes back. Open overlays (100) and
-    // the router outlet (0) handle the button first, but the outlet passes it
-    // on even when it navigates back, hence the check.
+    // home button does, rather than finishing it. Open overlays (100) and the
+    // router outlet (0) handle the button first, but the outlet passes it on
+    // even when it navigates back, hence the check.
     this.platform.backButton.subscribeWithPriority(-1, () => {
       if (!this.routerOutlet().canGoBack()) {
         void App.minimizeApp();
