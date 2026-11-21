@@ -1,128 +1,65 @@
 # dekoder-dowodu-rejestracyjnego
 
-<!-- markdownlint-disable MD013 -->
 [![Trunk Check](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/trunk-check.yaml/badge.svg)](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/trunk-check.yaml)
-<!-- markdownlint-enable MD013 -->
+[![Android debug build](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/android-debug.yaml/badge.svg)](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/android-debug.yaml)
 
-Dekoder dowodu rejestracyjnego
+Aplikacja na Androida, która skanuje kod Aztec z polskiego dowodu rejestracyjnego
+i pokazuje zapisane w nim dane pojazdu i właściciela.
 
-<!-- markdownlint-disable MD013 MD033 -->
-[<img height='62' width='161' src='https://play.google.com/intl/en_us/badges/images/generic/pl_badge_web_generic.png'/>](https://play.google.com/store/apps/details?id=com.github.dex4er.dekoder_dowodu_rejestracyjnego)
-
-<img height='427' width='240' src='https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/main/resources/android/store/screenshot-1.png'><img height='427' width='240' src='https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/main/resources/android/store/screenshot-2.png'>
-<!-- markdownlint-enable MD013 MD033 -->
+<img height="427" width="240" alt="Skanowanie kodu Aztec z dowodu rejestracyjnego" src="https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/main/resources/android/store/screenshot-1.png"><img height="427" width="240" alt="Dane zdekodowanego dowodu" src="https://raw.githubusercontent.com/dex4er/dekoder-dowodu-rejestracyjnego/main/resources/android/store/screenshot-2.png">
 
 ## Środowisko
 
-### Android SDK
-
-Ściągnij z <https://developer.android.com/studio/> narzędzia `sdk-tools`.
-
-Rozpakuj w katalogu `$HOME/android-sdk`.
-
-Dodaj do `$HOME/.profile`:
+Wersje narzędzi są przypięte w `mise.toml`. Zainstaluj [mise](https://mise.jdx.dev/)
+i w katalogu projektu uruchom:
 
 ```sh
-export ANDROID_HOME=$HOME/android-sdk
-export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+mise install
+pnpm install
 ```
 
-Przeloguj się lub przeładuj środowisko:
+To instaluje Node.js, pnpm i JDK. Do budowania aplikacji na Androida potrzebny
+jest jeszcze Android SDK, na przykład z Android Studio, ze zmienną
+`ANDROID_HOME` wskazującą na jego katalog.
+
+## Uruchomienie w przeglądarce
 
 ```sh
-. $HOME/.profile
+pnpm start
 ```
 
-Zainstaluj dodatkowe pakiety SDK
+Strona działa pod adresem <http://localhost:4200/>. Wersja przeglądarkowa nie
+ma aparatu: przycisk „Skanuj” zwraca dane przykładowego dowodu rejestracyjnego.
+
+## Testy i sprawdzenia
 
 ```sh
-sdkmanager platform-tools 'build-tools;26.0.2' 'platforms;android-27'
+pnpm test          # testy jednostkowe
+pnpm type:check    # sprawdzenie typów
+pnpm lint          # Biome
+pnpm trunk:check   # wszystkie lintery Trunk
 ```
 
-### Node.js
+## Android
 
-Jeśli nie masz odpowiednio nowego Node.js, wykorzystaj NVM:
+Zbuduj aplikację webową i przenieś ją do projektu Androida:
 
 ```sh
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+pnpm build
+pnpm android:sync
 ```
 
-i instaluj Node.js v10:
+Potem jedno z poniższych:
 
 ```sh
-nvm install 10
+pnpm android:debug   # android/app/build/outputs/apk/debug/app-debug.apk
+pnpm android:run     # instalacja i uruchomienie na urządzeniu lub emulatorze
+pnpm android:open    # otwarcie projektu w Android Studio
 ```
 
-### NPM
+Gotowy plik APK w wersji debug jest też artefaktem każdego przebiegu
+[Android debug build](https://github.com/dex4er/dekoder-dowodu-rejestracyjnego/actions/workflows/android-debug.yaml).
 
-Zainstaluj wszystkie biblioteki Node.js:
+## Licencja
 
-```sh
-npm i
-```
-
-Opcjonalnie Ionic i Cordova mogą zostać zainstalowane globalnie:
-
-```sh
-npm i -g ionic cordova
-```
-
-W takim przypadku można pominąć prefiks `npx` przy wywoływaniu tych narzędzi.
-
-## Testowanie
-
-Uruchom wersję przeglądarkową:
-
-```sh
-npx ionic serve
-```
-
-Powinno to wystartować przeglądarkę, która otwiera
-stronę <http://localhost:8100/>. Wersja przeglądarkowa korzysta z mocków, które
-zastępują natywne moduły Androida.
-
-## Uruchomienie
-
-### Urządzenie
-
-Uruchom na domyślnym urządzeniu podpiętym pod ADB:
-
-```sh
-npx ionic cordova run android
-```
-
-Spowoduje to też utworzenie pliku
-`platforms/android/app/build/outputs/apk/debug/app-debug.apk` ze skompilowaną
-aplikacją.
-
-### Emulator
-
-Wymaga to utworzenia obrazu dla emulatora:
-
-```sh
-sdkmanager 'system-images;android-26;google_apis;x86_64'
-avdmanager create avd --force --name testAVD --abi google_apis/x86_64 --package 'system-images;android-26;google_apis;x86_64'
-```
-
-Emulator uruchomi się, jeśli przy uruchamianiu nie ma podpiętego fizycznego
-urządzenia, bądź zostanie wywołany bezpośrednio:
-
-```sh
-npx ionic cordova emulate android
-```
-
-## Kompilacja
-
-W celu przygotowania wersji bez informacji dla debuggera:
-
-<!-- markdownlint-disable MD013 -->
-
-```sh
-npx ionic cordova build android --prod --release -- -- --keystore=$HOME/.android/debug.keystore --storePassword=android --alias=androiddebugkey --password=android
-```
-
-<!-- markdownlint-enable MD013 -->
-
-Opcje `--keystore`, `--storePassword`, `--alias` i `--password` powinny
-wskazywać na właściwy klucz do podpisania aplikacji, ewentualnie można je
-pominąć, aby wygenerować paczkę niepodpisaną.
+GPL-2.0, zobacz [LICENSE.txt](LICENSE.txt).
