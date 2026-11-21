@@ -1,2 +1,3 @@
-# Format sources with Biome
-b99edf1179412ebbcb6efac4068d2be6726b46ab
+# Replace Travis and TSLint with Trunk, Biome, pnpm and Renovate (#21),
+# squashed together with the reformatting of the sources by Biome
+6d69c5ea4bc841a2fe9ce26c48872fb3061f0dba
