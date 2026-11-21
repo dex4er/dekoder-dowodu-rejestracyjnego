@@ -241,6 +241,14 @@ signing is not set up.
 `cap sync ios` runs `xcodebuild clean` and refuses a `ios/App/build` that the
 build system did not create, so keep `-derivedDataPath` out of `ios/App`.
 
+`pnpm ios:device` runs `scripts/ios-device.sh`: it builds for a device with
+`-allowProvisioningUpdates` and the team of `DEVELOPMENT_TEAM`, installs and
+starts the app with `xcrun devicectl`, over the network once the device was
+paired by cable. The team ID is personal, so it comes from the environment,
+usually `mise.local.toml`, which git ignores, and never from `project.pbxproj`.
+The team ID is the OU of the "Apple Development" certificate in the keychain.
+Without `IOS_DEVICE` the script takes the only connected physical iOS device.
+
 ## Biome and Trunk
 
 Trunk runs Biome on a copy of the files in a sandbox outside the repository;

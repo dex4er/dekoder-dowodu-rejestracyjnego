@@ -19,3 +19,6 @@ Thumbs.db
 /coverage/
 /out-tsc/
 /www/
+
+# Local settings of mise, such as DEVELOPMENT_TEAM for pnpm ios:device
+/mise.local.toml

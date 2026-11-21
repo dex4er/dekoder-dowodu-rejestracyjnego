@@ -74,8 +74,21 @@ Potem jedno z poniższych:
 ```sh
 pnpm ios:open        # otwarcie projektu w Xcode i uruchomienie stamtąd
 pnpm ios:run         # instalacja i uruchomienie na symulatorze lub urządzeniu
+pnpm ios:device      # build, podpisanie, instalacja i start na iPhonie
 pnpm ios:simulator   # sam build na symulator
 ```
+
+`pnpm ios:device` potrzebuje Team ID certyfikatu deweloperskiego. Wpisz go do
+`mise.local.toml`, którego nie ma w repo:
+
+```toml
+[env]
+DEVELOPMENT_TEAM = "XXXXXXXXXX"
+# IOS_DEVICE = "UDID z xcrun devicectl list devices", jeśli podłączony jest więcej niż jeden iPhone
+```
+
+iPhone musi być sparowany z Xcode (raz przez kabel), potem wystarczy ta sama
+sieć Wi-Fi.
 
 Na symulatorze nie ma aparatu ani skanera: przycisk „Skanuj” zwraca dane
 przykładowego dowodu rejestracyjnego, jak w przeglądarce.

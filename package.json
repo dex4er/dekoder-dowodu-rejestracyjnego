@@ -27,6 +27,7 @@
     "ios:sync": "cap sync ios",
     "ios:open": "cap open ios",
     "ios:run": "cap run ios",
+    "ios:device": "pnpm build && cap sync ios && bash scripts/ios-device.sh",
     "ios:simulator": "cd ios/App && xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination \"generic/platform=iOS Simulator\" CODE_SIGNING_ALLOWED=NO build",
     "biome": "pnpm dlx @biomejs/biome@2.6.8",
     "biome:check": "pnpm biome check",
