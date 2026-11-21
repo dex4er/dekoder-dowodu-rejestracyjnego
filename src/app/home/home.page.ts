@@ -27,7 +27,13 @@ import type { PolishVehicleRegistrationCertificateData } from "polish-vehicle-re
 
 import { ScannerService } from "../scan/scanner.service";
 import { APP_INFO } from "../shared/app-info";
+import { CertificateActionsService } from "../shared/certificate-actions.service";
 import { type Certificate, CertificatesService } from "../shared/certificates.service";
+
+/** An ion-item-sliding, which closes its options. */
+interface Closable {
+  close(): Promise<unknown>;
+}
 
 interface ScanError {
   message: string;
@@ -67,6 +73,8 @@ export class HomePage {
 
   private readonly scanner = inject(ScannerService);
 
+  private readonly actions = inject(CertificateActionsService);
+
   readonly info = APP_INFO;
 
   readonly error = signal<ScanError | undefined>(undefined);
@@ -89,8 +97,14 @@ export class HomePage {
     await this.navController.navigateForward(["/details", this.certificates.serial(data)]);
   }
 
-  async delete(item: Certificate): Promise<void> {
-    await this.certificates.delete(this.serial(item));
+  async share(item: Certificate, sliding: Closable): Promise<void> {
+    await sliding.close();
+    await this.actions.share(item.data);
+  }
+
+  async delete(item: Certificate, sliding: Closable): Promise<void> {
+    await sliding.close();
+    await this.actions.delete(item.data);
   }
 
   async drag(item: Certificate, event: CustomEvent): Promise<void> {
