@@ -2,6 +2,7 @@ import { Component, inject, signal } from "@angular/core";
 
 import {
   IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -25,6 +26,7 @@ import {
 import type { PolishVehicleRegistrationCertificateData } from "polish-vehicle-registration-certificate-decoder";
 
 import { ScannerService } from "../scan/scanner.service";
+import { APP_INFO } from "../shared/app-info";
 import { type Certificate, CertificatesService } from "../shared/certificates.service";
 
 interface ScanError {
@@ -38,6 +40,7 @@ interface ScanError {
   styleUrl: "home.page.scss",
   imports: [
     IonButton,
+    IonButtons,
     IonCard,
     IonCardContent,
     IonCardHeader,
@@ -64,6 +67,8 @@ export class HomePage {
 
   private readonly scanner = inject(ScannerService);
 
+  readonly info = APP_INFO;
+
   readonly error = signal<ScanError | undefined>(undefined);
 
   private readonly dragged = signal<ReadonlySet<string>>(new Set());
@@ -74,6 +79,10 @@ export class HomePage {
 
   scannedAt(item: Certificate): string {
     return new Date(item.scannedAt).toLocaleString("pl-PL", { dateStyle: "short", timeStyle: "short" });
+  }
+
+  async about(): Promise<void> {
+    await this.navController.navigateForward("/about");
   }
 
   async details(data: PolishVehicleRegistrationCertificateData): Promise<void> {

@@ -19,13 +19,21 @@ import {
 import { IonicRouteStrategy, provideIonicAngular } from "@ionic/angular";
 
 import { addIcons } from "ionicons";
-import { chevronBack, chevronForward, flashlight, flashlightOutline, shareSocial, trash } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  flashlight,
+  flashlightOutline,
+  informationCircleOutline,
+  shareSocial,
+  trash,
+} from "ionicons/icons";
 
 import { AppComponent } from "./app/app.component";
 import { routes } from "./app/app.routes";
 import { CertificatesService } from "./app/shared/certificates.service";
 
-addIcons({ chevronBack, chevronForward, flashlight, flashlightOutline, shareSocial, trash });
+addIcons({ chevronBack, chevronForward, flashlight, flashlightOutline, informationCircleOutline, shareSocial, trash });
 
 bootstrapApplication(AppComponent, {
   providers: [

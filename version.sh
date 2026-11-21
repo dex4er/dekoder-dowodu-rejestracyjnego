@@ -9,8 +9,6 @@ fi
 
 set -e
 
-echo "export const version = \"$version\";" >src/version.ts
-
 date=$(date "+%Y-%m-%d")
 {
   echo "## v$version $date"

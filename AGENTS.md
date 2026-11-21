@@ -30,6 +30,12 @@ Freelens.
 - `src/app/home/`: the list of scanned certificates, swipe to delete, and the
   error card that shows the raw scanned text when it does not decode.
 - `src/app/details/`: every field of one certificate.
+- `src/app/about/`: the about page, one Markdown document rendered with `marked`:
+  the text of `src/assets/about.md` (`{version}` becomes the version of
+  `package.json`), then `LICENSE.txt` and the licenses of the libraries. Those
+  come from `3rdpartylicenses.txt`, which only the production build writes, so
+  the development server shows a note instead. License texts stay verbatim in
+  code blocks.
 - `src/app/scan/`: the scanner service and its modal over the camera preview.
 - `src/app/shared/`: the certificate store and the specimen
   certificate the browser build returns instead of scanning.
@@ -244,5 +250,5 @@ The default branch is `main`.
 The release to the Play Store is on hold, as the application id may change:
 the `versionCode` and `versionName` in `android/app/build.gradle` are still
 those of the template, and signing is not set up. `version.sh` (run by
-`pnpm version`) still writes `src/version.ts`, which nothing imports any more,
-and the changelog entry.
+`pnpm version`) only adds the changelog entry; the app reads its version from
+`package.json`.

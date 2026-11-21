@@ -1,0 +1,14 @@
+.markdown {
+  user-select: text;
+}
+
+// The license texts keep their line breaks, but wrap on a narrow screen.
+.markdown ::ng-deep pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.8em;
+}
+
+.markdown ::ng-deep h1 {
+  margin-top: 0;
+}
