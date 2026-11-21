@@ -245,7 +245,8 @@ build system did not create, so keep `-derivedDataPath` out of `ios/App`.
 `-allowProvisioningUpdates` and the team of `DEVELOPMENT_TEAM`, installs and
 starts the app with `xcrun devicectl`, over the network once the device was
 paired by cable. The team ID is personal, so it comes from the environment,
-usually `mise.local.toml`, which git ignores, and never from `project.pbxproj`.
+usually `.env`, which git ignores and `mise.toml` loads (`_.file`, skipped
+when there is none), and never from `project.pbxproj`.
 The team ID is the OU of the "Apple Development" certificate in the keychain.
 Without `IOS_DEVICE` the script takes the only connected physical iOS device.
 

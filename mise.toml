@@ -6,6 +6,10 @@ pnpm = "12.21.0"
 ruby = "4.0.10"
 yq = "4.54.3"
 
+# Local, untracked settings, such as DEVELOPMENT_TEAM for pnpm ios:device.
+[env]
+_.file = ".env"
+
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
 lockfile = true

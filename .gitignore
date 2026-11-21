@@ -20,5 +20,6 @@ Thumbs.db
 /out-tsc/
 /www/
 
-# Local settings of mise, such as DEVELOPMENT_TEAM for pnpm ios:device
+# Local settings, such as DEVELOPMENT_TEAM for pnpm ios:device
+/.env
 /mise.local.toml

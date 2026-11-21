@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-: "${DEVELOPMENT_TEAM:?set DEVELOPMENT_TEAM to the team ID of the signing certificate, for example in mise.local.toml}"
+: "${DEVELOPMENT_TEAM:?set DEVELOPMENT_TEAM to the team ID of the signing certificate, for example in .env}"
 
 derived_data="${IOS_DERIVED_DATA:-${TMPDIR:-/tmp}/dekoder-ios}"
 
