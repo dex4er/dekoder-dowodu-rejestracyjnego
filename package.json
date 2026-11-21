@@ -58,6 +58,7 @@
     "@ionic/angular": "^9.0.13",
     "buffer": "^6.0.3",
     "ionicons": "^8.1.1",
+    "marked": "18.2.1",
     "polish-vehicle-registration-certificate-decoder": "^1.0.1",
     "rxjs": "~7.8.2",
     "tslib": "^2.9.1"

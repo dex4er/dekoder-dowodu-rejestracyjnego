@@ -1,12 +1,22 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Zeskanowane dowody rejestracyjne</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="about()" aria-label="O aplikacji">
+        <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   @if (certificates.count() === 0) {
-  <ion-list-header>Brak...</ion-list-header>
+  <ion-list-header>Brak zeskanowanych dowodów</ion-list-header>
+  <div class="about ion-padding">
+    <p>{{ info.name }} {{ info.version }}</p>
+    <p>{{ info.copyright }}</p>
+    <ion-button fill="clear" size="small" (click)="about()">O aplikacji</ion-button>
+  </div>
   }
   <ion-list>
     @for (item of certificates.list(); track serial(item)) {
