@@ -1,6 +1,5 @@
 import { Component, computed, inject, input } from "@angular/core";
 
-import { Share } from "@capacitor/share";
 import {
   IonBackButton,
   IonButton,
@@ -14,10 +13,10 @@ import {
   IonTitle,
   IonToolbar,
   NavController,
-  ToastController,
 } from "@ionic/angular";
 
-import { type CertificateField, certificateFields, certificateText, fieldLines } from "../shared/certificate-text";
+import { CertificateActionsService } from "../shared/certificate-actions.service";
+import { type CertificateField, certificateFields, fieldLines } from "../shared/certificate-text";
 import { CertificatesService } from "../shared/certificates.service";
 
 @Component({
@@ -43,7 +42,7 @@ export class DetailsPage {
 
   private readonly navController = inject(NavController);
 
-  private readonly toastController = inject(ToastController);
+  private readonly actions = inject(CertificateActionsService);
 
   /** The route parameter, bound by withComponentInputBinding. */
   readonly serial = input.required<string>();
@@ -64,45 +63,17 @@ export class DetailsPage {
     return fieldLines(field);
   }
 
-  /** Sends the certificate as text through the share sheet of the system. */
   async share(): Promise<void> {
     const item = this.item();
-    if (!item) {
-      return;
-    }
-    try {
-      await Share.share({
-        title: this.certificates.label(item),
-        text: certificateText(item),
-        dialogTitle: "Udostępnij dane dowodu rejestracyjnego",
-      });
-    } catch (e) {
-      const message = e instanceof Error ? e.message : String(e);
-      // Closing the share sheet without a choice rejects the call too.
-      if (message === "Share canceled") {
-        return;
-      }
-      const toast = await this.toastController.create({
-        message: `Nie można udostępnić danych: ${message}`,
-        duration: 3000,
-        position: "top",
-        color: "danger",
-      });
-      await toast.present();
+    if (item) {
+      await this.actions.share(item);
     }
   }
 
   async delete(): Promise<void> {
     const item = this.item();
-    if (item) {
-      await this.certificates.delete(this.serial());
-      const toast = await this.toastController.create({
-        message: `Skasowano dane dowodu rejestracyjnego ${this.certificates.label(item)}`,
-        duration: 2000,
-        position: "top",
-      });
-      await toast.present();
+    if (item && (await this.actions.delete(item))) {
+      await this.navController.navigateBack("/home");
     }
-    await this.navController.navigateBack("/home");
   }
 }
