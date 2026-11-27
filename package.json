@@ -61,7 +61,7 @@
     "@capacitor/core": "^8.6.2",
     "@capacitor/ios": "^8.6.2",
     "@capacitor/share": "^8.0.3",
-    "@ionic/angular": "^9.0.13",
+    "@ionic/angular": "^9.0.14",
     "buffer": "^6.0.3",
     "ionicons": "^8.1.1",
     "marked": "18.2.1",
