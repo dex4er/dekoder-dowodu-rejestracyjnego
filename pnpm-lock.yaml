@@ -198,22 +198,22 @@ importers:
         version: 8.0.1
       '@capacitor-mlkit/barcode-scanning':
         specifier: ^8.2.2
-        version: 8.2.2(@capacitor/core@8.6.2)
+        version: 8.2.2(@capacitor/core@8.6.3)
       '@capacitor/android':
-        specifier: ^8.6.2
-        version: 8.6.2(@capacitor/core@8.6.2)
+        specifier: ^8.6.3
+        version: 8.6.3(@capacitor/core@8.6.3)
       '@capacitor/app':
         specifier: ^8.1.2
-        version: 8.1.2(@capacitor/core@8.6.2)
+        version: 8.1.2(@capacitor/core@8.6.3)
       '@capacitor/core':
-        specifier: ^8.6.2
-        version: 8.6.2
+        specifier: ^8.6.3
+        version: 8.6.3
       '@capacitor/ios':
-        specifier: ^8.6.2
-        version: 8.6.2(@capacitor/core@8.6.2)
+        specifier: ^8.6.3
+        version: 8.6.3(@capacitor/core@8.6.3)
       '@capacitor/share':
         specifier: ^8.0.3
-        version: 8.0.3(@capacitor/core@8.6.2)
+        version: 8.0.3(@capacitor/core@8.6.3)
       '@ionic/angular':
         specifier: ^9.0.13
         version: 9.0.13(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2))(@angular/forms@22.3.0(@angular/common@22.3.0(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2))(@angular/platform-browser@22.3.0(@angular/common@22.3.0(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2)))(rxjs@7.8.2))(@angular/router@22.3.0(@angular/common@22.3.0(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2))(@angular/platform-browser@22.3.0(@angular/common@22.3.0(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.3.0(@angular/compiler@22.3.0)(rxjs@7.8.2)))(rxjs@7.8.2))(rxjs@7.8.2)
@@ -246,8 +246,8 @@ importers:
         specifier: ~22.3.0
         version: 22.3.0(@angular/compiler@22.3.0)(typescript@6.0.3)
       '@capacitor/cli':
-        specifier: ^8.6.2
-        version: 8.6.2(supports-color@8.1.1)
+        specifier: ^8.6.3
+        version: 8.6.3(supports-color@8.1.1)
       '@types/node':
         specifier: ^26.6.6
         version: 26.6.6
@@ -475,8 +475,8 @@ packages:
     peerDependencies:
       '@capacitor/core': '>=8.0.0'
 
-  '@capacitor/android@8.6.2':
-    resolution: {integrity: sha512-dWXnXmOVTtxU91n5h11MzoQ7PAMjyzU1qguw0mBJZiwSuhGvLKTG/IlsQ75H8qeE0a1acV2f573x15wYvyzuVA==}
+  '@capacitor/android@8.6.3':
+    resolution: {integrity: sha512-hTRLGYBUr7UoFSvn+1dnTwgPV7q0FgcTAVA6Y2i0wYzEkq3vR3oSaIs6ERO8WiqeIAupbbL74iG3OwM7BA1bcQ==}
     peerDependencies:
       '@capacitor/core': ^8.6.0
 
@@ -485,16 +485,16 @@ packages:
     peerDependencies:
       '@capacitor/core': '>=8.0.0'
 
-  '@capacitor/cli@8.6.2':
-    resolution: {integrity: sha512-3HeNPX3cEWBSljJT0sJviZCxXRoToTLAufhUcIJh+JMj1xOhLFZpuj8oFRnJ0kNYAf7DIBHQDmilIXloK9+YYg==}
+  '@capacitor/cli@8.6.3':
+    resolution: {integrity: sha512-HBZ5mb9CNv5TzEW+vjB3aWKi7JIZRb7ExxsVaH/OLd19qXlarWxc2vUXAKtM6Zl2LmTb/rX8hN1q1BvwO7gb7w==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  '@capacitor/core@8.6.2':
-    resolution: {integrity: sha512-UEb9crRuqEAe2Iu2eGOEuQ8rLQxpwg7ZZIpl17UJoytEpnV1e4oXXW0K7yYS2NsCOGmJjyLeKjNlgG7tkAoX8g==}
+  '@capacitor/core@8.6.3':
+    resolution: {integrity: sha512-WJ/DM2OTriEED5sI4jUyJU0NL3QJ/YenS2+SepW/nghMA5ixFJhm8NqGWdqDYYg+eRtJkjD8PcXtIxy4zTP0PA==}
 
-  '@capacitor/ios@8.6.2':
-    resolution: {integrity: sha512-YnVm0lRA1mQWK0SKd2bdJIOG+PXRRDDdndZ1+nGqeiob+QmHZmb4wWo5gVpWhoHO37pGi2qzH5w5WGvfKrs+Gg==}
+  '@capacitor/ios@8.6.3':
+    resolution: {integrity: sha512-6J51zrE2pjH5SuQJ7n8WfffDGKeK1N504cydhxiuY5R0gfndyIajnhmhPlyA6BYKXObVC3ylwXPBdwFiInGvTA==}
     peerDependencies:
       '@capacitor/core': ^8.6.0
 
@@ -3164,11 +3164,11 @@ snapshots:
 
   '@aparajita/capacitor-secure-storage@8.0.1':
     dependencies:
-      '@capacitor/android': 8.6.2(@capacitor/core@8.6.2)
-      '@capacitor/app': 8.1.2(@capacitor/core@8.6.2)
-      '@capacitor/core': 8.6.2
-      '@capacitor/ios': 8.6.2(@capacitor/core@8.6.2)
-      '@capacitor/keyboard': 8.0.6(@capacitor/core@8.6.2)
+      '@capacitor/android': 8.6.3(@capacitor/core@8.6.3)
+      '@capacitor/app': 8.1.2(@capacitor/core@8.6.3)
+      '@capacitor/core': 8.6.3
+      '@capacitor/ios': 8.6.3(@capacitor/core@8.6.3)
+      '@capacitor/keyboard': 8.0.6(@capacitor/core@8.6.3)
 
   '@babel/code-frame@8.0.6':
     dependencies:
@@ -3253,19 +3253,19 @@ snapshots:
 
   '@bufbuild/protobuf@2.17.0': {}
 
-  '@capacitor-mlkit/barcode-scanning@8.2.2(@capacitor/core@8.6.2)':
+  '@capacitor-mlkit/barcode-scanning@8.2.2(@capacitor/core@8.6.3)':
     dependencies:
-      '@capacitor/core': 8.6.2
+      '@capacitor/core': 8.6.3
 
-  '@capacitor/android@8.6.2(@capacitor/core@8.6.2)':
+  '@capacitor/android@8.6.3(@capacitor/core@8.6.3)':
     dependencies:
-      '@capacitor/core': 8.6.2
+      '@capacitor/core': 8.6.3
 
-  '@capacitor/app@8.1.2(@capacitor/core@8.6.2)':
+  '@capacitor/app@8.1.2(@capacitor/core@8.6.3)':
     dependencies:
-      '@capacitor/core': 8.6.2
+      '@capacitor/core': 8.6.3
 
-  '@capacitor/cli@8.6.2(supports-color@8.1.1)':
+  '@capacitor/cli@8.6.3(supports-color@8.1.1)':
     dependencies:
       '@ionic/cli-framework-output': 2.2.8(supports-color@8.1.1)
       '@ionic/utils-subprocess': 3.0.1(supports-color@8.1.1)
@@ -3288,21 +3288,21 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@capacitor/core@8.6.2':
+  '@capacitor/core@8.6.3':
     dependencies:
       tslib: 2.9.1
 
-  '@capacitor/ios@8.6.2(@capacitor/core@8.6.2)':
+  '@capacitor/ios@8.6.3(@capacitor/core@8.6.3)':
     dependencies:
-      '@capacitor/core': 8.6.2
+      '@capacitor/core': 8.6.3
 
-  '@capacitor/keyboard@8.0.6(@capacitor/core@8.6.2)':
+  '@capacitor/keyboard@8.0.6(@capacitor/core@8.6.3)':
     dependencies:
-      '@capacitor/core': 8.6.2
+      '@capacitor/core': 8.6.3
 
-  '@capacitor/share@8.0.3(@capacitor/core@8.6.2)':
+  '@capacitor/share@8.0.3(@capacitor/core@8.6.3)':
     dependencies:
-      '@capacitor/core': 8.6.2
+      '@capacitor/core': 8.6.3
 
   '@emnapi/core@2.0.0-alpha.6':
     dependencies:
